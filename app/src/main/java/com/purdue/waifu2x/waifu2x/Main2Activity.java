@@ -42,3 +42,7 @@ public class Main2Activity extends AppCompatActivity {
         startActivity(mIntent);
     }
 }
+
+
+
+// Can you see this?
