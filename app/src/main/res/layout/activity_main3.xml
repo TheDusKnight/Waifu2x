@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".Main3Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:onClick="Start"
+            android:text="@string/start"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:onClick="Library"
+            android:text="@string/library"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:onClick="About"
+            android:text="@string/about"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="220dp">
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/tod15"
+            app:srcCompat="@drawable/image" />
+
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/tod16"
+            app:srcCompat="@drawable/image" />
+
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/tod17"
+            app:srcCompat="@drawable/image" />
+
+        <ImageView
+            android:id="@+id/imageView18"
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/tod18"
+            app:srcCompat="@drawable/image" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="120dp">
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/tod11"
+            app:srcCompat="@drawable/image" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/tod12"
+            app:srcCompat="@drawable/image" />
+
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/tod13"
+            app:srcCompat="@drawable/image" />
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/tod14"
+            app:srcCompat="@drawable/image" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/image"
+            android:contentDescription="@string/tod7" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/image"
+            android:contentDescription="@string/tod8" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/image"
+            android:contentDescription="@string/tod9" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/image"
+            android:contentDescription="@string/tod1o" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="165dp">
+
+        <ImageView
+            android:id="@+id/imageView19"
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/tod19"
+            app:srcCompat="@drawable/image" />
+
+        <ImageView
+            android:id="@+id/imageView20"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/tod2o"
+            app:srcCompat="@drawable/image" />
+
+        <ImageView
+            android:id="@+id/imageView21"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/tod21"
+            app:srcCompat="@drawable/image" />
+
+        <ImageView
+            android:id="@+id/imageView22"
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/tod22"
+            app:srcCompat="@drawable/image" />
+    </TableRow>
+
+</RelativeLayout>

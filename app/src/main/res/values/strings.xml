@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Waifu2x</string>
+    <string name="todo">TODO</string>
+    <string name="image_choosing">Image choosing:</string>
+    <string name="choose_image">Choose image</string>
+    <string name="style">Style</string>
+    <string name="artwork">ArtWork</string>
+    <string name="photo">Photo</string>
+    <string name="noise_reduction">Noise Reduction</string>
+    <string name="tod1">TOD1</string>
+    <string name="tod2">TOD2</string>
+    <string name="compare">Compare</string>
+    <string name="start">Start</string>
+    <string name="library">Library</string>
+    <string name="about">About</string>
+    <string name="low">Low</string>
+    <string name="medium">Medium</string>
+    <string name="high">High</string>
+    <string name="upscaling">Upscaling</string>
+    <string name="_2x">2x</string>
+    <string name="_4x">4x</string>
+    <string name="_8x">8x</string>
+    <string name="convert">Convert</string>
+    <string name="tod7">TOD7</string>
+    <string name="tod8">TOD8</string>
+    <string name="tod9">TOD9</string>
+    <string name="tod1o">TOD1O</string>
+    <string name="tod11">TOD11</string>
+    <string name="tod12">TOD12</string>
+    <string name="tod13">TOD13</string>
+    <string name="tod14">TOD14</string>
+    <string name="tod15">TOD15</string>
+    <string name="tod16">TOD16</string>
+    <string name="tod17">TOD17</string>
+    <string name="tod18">TOD18</string>
+    <string name="tod19">TOD19</string>
+    <string name="tod2o">TOD2O</string>
+    <string name="tod21">TOD21</string>
+    <string name="tod22">TOD22</string>
+    <string name="thank_you">  Thank you for using this APP! If you like it, please rate this app and leave some comments on Google Appstore.\n
+        Developers: Xirui Zhong, Shuai Shao, Andrea Nguyen</string>
+    <string name="tod23">TOD23</string>
+</resources>
