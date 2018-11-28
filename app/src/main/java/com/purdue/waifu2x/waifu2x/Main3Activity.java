@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.io.File;
 
 public class Main3Activity extends AppCompatActivity {
 
@@ -49,14 +52,39 @@ public class Main3Activity extends AppCompatActivity {
         image15.setImageDrawable(getWaifuImage(15));
         image16.setImageDrawable(getWaifuImage(16));
 
-        
+
     }
 
     private Drawable getWaifuImage(int i) {
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
-        String imagePath = dbHandler.findImage(i);
+        waifuImage wi = dbHandler.findImage(i);
+        String imagePath = wi.get_imagePath();
         Drawable d;
         if (imagePath != null) {
+            //Check if path exists
+            File file = new File(imagePath);
+            if (!file.exists()) {
+                boolean flag = true;
+                while (flag) {
+                    Toast.makeText(this, "An image has been moved or deleted", Toast.LENGTH_LONG).show();
+                    for (int j = i + 1; j < 16; j++) {
+                        //Updating database to fill in the gaps and checking again
+                            dbHandler.fillMissingImage(j);
+                    }
+                    wi = dbHandler.findImage(i);
+                    imagePath = wi.get_imagePath();
+                    file = new File(imagePath);
+                    if (imagePath != null) {
+                        if (file.exists()) {
+                            flag = false;
+                        } else {
+                            d = ResourcesCompat.getDrawable(getResources(), R.drawable.image, null);
+                            return d;
+                        }
+                    }
+                } //end while
+            }
+            //if path does exist
             d = Drawable.createFromPath(imagePath);
         } else {
             d = ResourcesCompat.getDrawable(getResources(), R.drawable.image, null);

@@ -23,7 +23,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_WAIFU_TABLE = "CREATE TABLE " + TABLE_waifu + "(" +
-                COLUMN_ID + "INTEGER PRIMARY KEY," + COLUMN_IMAGEPATHNAME + " TEXT)";
+                COLUMN_ID + " INTEGER," + COLUMN_IMAGEPATHNAME + " TEXT PRIMARY KEY)";
         db.execSQL(CREATE_WAIFU_TABLE);
     }
 
@@ -33,18 +33,42 @@ public class MyDBHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addImage(waifuImage wi) {
+    public void addImage(waifuImage wi, int id) {
         ContentValues values = new ContentValues();
-        values.put(COLUMN_ID, wi.get_id());
+        values.put(COLUMN_ID, id);
         values.put(COLUMN_IMAGEPATHNAME, wi.get_imagePath());
 
         SQLiteDatabase db = this.getWritableDatabase();
+        //Making the newest entry the first row
+        if (id == 1) {
+            for (int i = 1; i < 16; i++) {
+                ContentValues newValues = new ContentValues();
+                newValues.put(COLUMN_ID, i + 1);
+
+                String query = "Select * From " + TABLE_waifu + " Where " + COLUMN_ID + " = " + i;
+                Cursor c = db.rawQuery(query, null);
+                waifuImage oldwi = new waifuImage();
+
+                if (c.moveToFirst()) {
+                    wi.set_id(Integer.parseInt(c.getString(0)));
+                    db.update(TABLE_waifu, newValues, COLUMN_ID + " = ?",
+                            new String[] { String.valueOf(oldwi.get_id())} );
+                    c.close();
+                }
+            }
+            //Checking for and deleting excess rows
+            String query2 = "Select * From " + TABLE_waifu + " Where " + COLUMN_ID + " = 17";
+            Cursor c2 = db.rawQuery(query2, null);
+            if (c2.getCount() > 0) {
+                deleteImage(17);
+            }
+        } //end if
 
         db.insert(TABLE_waifu, null, values);
         db.close();
     }
 
-    public String findImage(int id) {
+    public waifuImage findImage(int id) {
         String query = "Select * From " + TABLE_waifu + " Where " + COLUMN_ID + " = " + id;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(query, null);
@@ -56,10 +80,10 @@ public class MyDBHandler extends SQLiteOpenHelper {
             wi.set_imagePath(c.getString(1));
             c.close();
         } else {
-            wi = null;
+            wi.set_imagePath(null);
         }
         db.close();
-        return wi.get_imagePath();
+        return wi;
     }
 
     public boolean deleteImage(int id) {
@@ -79,5 +103,22 @@ public class MyDBHandler extends SQLiteOpenHelper {
         }
         db.close();
         return result;
+    }
+
+    public void fillMissingImage(int i) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ID, i - 1);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Select * From " + TABLE_waifu + " Where " + COLUMN_ID + " = " + i;
+        Cursor c = db.rawQuery(query, null);
+        waifuImage wi = new waifuImage();
+
+        if (c.moveToFirst()) {
+            wi.set_id(Integer.parseInt(c.getString(0)));
+            db.update(TABLE_waifu, values, COLUMN_ID + " = ?",
+                    new String[] { String.valueOf(wi.get_id())} );
+            c.close();
+        }
     }
 }
