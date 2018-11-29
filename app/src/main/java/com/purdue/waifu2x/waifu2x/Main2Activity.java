@@ -3,9 +3,12 @@ package com.purdue.waifu2x.waifu2x;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Environment;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,9 +20,16 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -45,11 +55,26 @@ public class Main2Activity extends AppCompatActivity {
             InputStream is = getContentResolver().openInputStream(getImage);
             image_old.setImageDrawable(Drawable.createFromStream(is, getImage.toString()));
         } catch (FileNotFoundException e) {
-            Toast.makeText(this, "Oops, something went wrong when loading images",
-                    Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
 
         //still need converted image for image_new
+        //preparing to store new image into cache and SQLite database
+        File file;
+        String filename = "";
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+        try {
+            file = File.createTempFile(filename, null, getCacheDir());
+            cachePath = file.getAbsolutePath();
+            //will need to edit if converted image does not come from file
+            downloadToFile("", cachePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        waifuImage wi = new waifuImage(1, cachePath);
+        dbHandler.addImage(wi, wi.get_id());
+
 
         //Letting user swipe to change between images
         FrameLayout myLayout = findViewById(R.id.frame);
@@ -111,13 +136,52 @@ public class Main2Activity extends AppCompatActivity {
     public void share(View view) {
         Intent shareImage = new Intent(Intent.ACTION_SEND);
         shareImage.setType("image/*");
-        Uri imageUri = Uri.parse("file://" + filePath);
+        File file = new File(cachePath);
+        Uri imageUri = FileProvider.getUriForFile(this, "com.purdue.waifu2x.waifu2x.fileprovider", file);
         shareImage.putExtra(Intent.EXTRA_STREAM, imageUri);
         startActivity(Intent.createChooser(shareImage, "Share via"));
     }
 
     public void download(View view) {
 
+        //Creating a folder to save images in
+        File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                + "/Waifu2x Images/");
+        dir.mkdirs();
+
+        //need a way to get or create image name
+        File file = new File(dir, "sample.png");
+        filePath = file.getAbsolutePath();
+        try {
+            downloadToFile(cachePath, filePath);
+            Toast.makeText(this,"Image downloaded", Toast.LENGTH_LONG);
+            view.setClickable(false);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Image could not be downloaded", Toast.LENGTH_LONG);
+        }
+    }
+
+    public void downloadToFile (String source, String destination) throws IOException {
+        File file = new File(source);
+        Uri fileUri = Uri.fromFile(file);
+        URL url = new URL(fileUri.toString());
+        URLConnection connection = url.openConnection();
+        connection.connect();
+        int lenghtOfFile = connection.getContentLength();
+        Log.d("ANDRO_ASYNC", "Lenght of file: " + lenghtOfFile);
+        InputStream input = new BufferedInputStream(url.openStream());
+        OutputStream output = new FileOutputStream(destination);
+        byte data[] = new byte[1024];
+        long total = 0;
+        int count;
+        while ((count = input.read(data)) != -1) {
+            total += count;
+            output.write(data, 0, count);
+        }
+        output.flush();
+        output.close();
+        input.close();
     }
 
     public void undo(View view) {

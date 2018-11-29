@@ -66,7 +66,7 @@ public class Main3Activity extends AppCompatActivity {
             if (!file.exists()) {
                 boolean flag = true;
                 while (flag) {
-                    Toast.makeText(this, "An image has been moved or deleted", Toast.LENGTH_LONG).show();
+                    dbHandler.deleteImage(i);
                     for (int j = i + 1; j < 16; j++) {
                         //Updating database to fill in the gaps and checking again
                             dbHandler.fillMissingImage(j);
@@ -90,6 +90,63 @@ public class Main3Activity extends AppCompatActivity {
             d = ResourcesCompat.getDrawable(getResources(), R.drawable.image, null);
         }
         return d;
+    }
+
+    public void clickImage (View view) {
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+        waifuImage wi;
+        String imagePath;
+        switch (view.getId()) {
+            case R.id.imageView7:
+                wi = dbHandler.findImage(1);
+                imagePath = wi.get_imagePath();
+            case R.id.imageView8:
+                wi = dbHandler.findImage(2);
+                imagePath = wi.get_imagePath();
+            case R.id.imageView9:
+                wi = dbHandler.findImage(3);
+                imagePath = wi.get_imagePath();
+            case R.id.imageView10:
+                wi = dbHandler.findImage(4);
+                imagePath = wi.get_imagePath();
+            case R.id.imageView11:
+                wi = dbHandler.findImage(5);
+                imagePath = wi.get_imagePath();
+            case R.id.imageView12:
+                wi = dbHandler.findImage(6);
+                imagePath = wi.get_imagePath();
+            case R.id.imageView13:
+                wi = dbHandler.findImage(7);
+                imagePath = wi.get_imagePath();
+            case R.id.imageView14:
+                wi = dbHandler.findImage(8);
+                imagePath = wi.get_imagePath();
+            case R.id.imageView15:
+                wi = dbHandler.findImage(9);
+                imagePath = wi.get_imagePath();
+            case R.id.imageView16:
+                wi = dbHandler.findImage(10);
+                imagePath = wi.get_imagePath();
+            case R.id.imageView17:
+                wi = dbHandler.findImage(11);
+                imagePath = wi.get_imagePath();
+            case R.id.imageView18:
+                wi = dbHandler.findImage(12);
+                imagePath = wi.get_imagePath();
+            case R.id.imageView19:
+                wi = dbHandler.findImage(13);
+                imagePath = wi.get_imagePath();
+            case R.id.imageView20:
+                wi = dbHandler.findImage(14);
+                imagePath = wi.get_imagePath();
+            case R.id.imageView21:
+                wi = dbHandler.findImage(15);
+                imagePath = wi.get_imagePath();
+            case R.id.imageView22:
+                wi = dbHandler.findImage(16);
+                imagePath = wi.get_imagePath();
+        }//end switch
+
     }
 
     public void Start(View view) {
