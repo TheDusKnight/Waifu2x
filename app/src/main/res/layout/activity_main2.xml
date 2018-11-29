@@ -1,71 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context=".Main2Activity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="180dp"
-        android:layout_height="225dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:contentDescription="@string/todo"
-        app:srcCompat="?android:attr/windowBackground" />
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="6">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:contentDescription="@string/todo"
+            app:srcCompat="?android:attr/windowBackground" />
+
+        <ImageView
+            android:id="@+id/imageView_old"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:contentDescription="@string/todo"
+            android:visibility="gone"
+            app:srcCompat="?android:attr/windowBackground" />
+    </FrameLayout>
 
     <Button
         android:id="@+id/button3"
         android:layout_width="110dp"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="210dp"
+        android:layout_gravity="center_horizontal"
         android:onClick="compare"
         android:text="@string/compare" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="111dp"
-        android:layout_toStartOf="@+id/imageView"
-        android:contentDescription="@string/todo"
-        android:onClick="share"
-        app:srcCompat="@drawable/share" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="15dp">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignTop="@+id/imageView2"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/download"
-        android:onClick="download"
-        android:contentDescription="@string/tod1" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="@string/todo"
+            android:focusable="true"
+            android:onClick="share"
+            app:srcCompat="@drawable/share" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignTop="@+id/imageView2"
-        android:layout_toEndOf="@+id/imageView"
-        app:srcCompat="@drawable/undo"
-        android:onClick="undo"
-        android:contentDescription="@string/tod2" />
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="@string/tod1"
+            android:focusable="true"
+            android:onClick="download"
+            app:srcCompat="@drawable/download" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="@string/tod2"
+            android:focusable="true"
+            android:onClick="undo"
+            app:srcCompat="@drawable/undo" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
         android:orientation="horizontal">
 
         <Button
@@ -96,4 +117,4 @@
             tools:ignore="ButtonStyle" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

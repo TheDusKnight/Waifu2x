@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
     ImageView imageView1;
+    Uri selectedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,22 +51,24 @@ public class MainActivity extends AppCompatActivity {
         switch(requestCode) {
             case 0:
                 if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
+                    selectedImage = imageReturnedIntent.getData();
                     imageView1.setImageURI(selectedImage);
                 }
 
                 break;
             case 1:
                 if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
+                    selectedImage = imageReturnedIntent.getData();
                     imageView1.setImageURI(selectedImage);
                 }
                 break;
         }
     }
 
+
     public void convert(View view) {
         Intent mIntent=new Intent(this, Main2Activity.class);
+        mIntent.putExtra("Image", selectedImage.toString());
         startActivity(mIntent);
     }
 
