@@ -92,10 +92,10 @@ public class Main3Activity extends AppCompatActivity {
         return d;
     }
 
-    public void clickImage (View view) {
+    public void toDisplay (View view) {
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
         waifuImage wi;
-        String imagePath;
+        String imagePath = null;
         switch (view.getId()) {
             case R.id.imageView7:
                 wi = dbHandler.findImage(1);
@@ -146,7 +146,9 @@ public class Main3Activity extends AppCompatActivity {
                 wi = dbHandler.findImage(16);
                 imagePath = wi.get_imagePath();
         }//end switch
-
+        Intent mIntent = new Intent(this, DisplayActivity.class);
+        mIntent.putExtra("Path", imagePath);
+        startActivity(mIntent);
     }
 
     public void Start(View view) {
@@ -163,4 +165,6 @@ public class Main3Activity extends AppCompatActivity {
         Intent mIntent=new Intent(this, Main4Activity.class);
         startActivity(mIntent);
     }
+
+
 }

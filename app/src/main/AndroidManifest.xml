@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:tools="http://schemas.android.com/tools"
     package="com.purdue.waifu2x.waifu2x">
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -26,7 +26,7 @@
         <activity android:name=".Main3Activity" />
         <activity android:name=".Main4Activity" />
 
-        <!--Need this in order to share from files in API 24+ -->
+        <!-- Need this in order to share from files in API 24+ -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.purdue.waifu2x.waifu2x.fileprovider"
@@ -37,6 +37,7 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
+        <activity android:name=".DisplayActivity"></activity>
     </application>
 
 </manifest>
