@@ -18,22 +18,22 @@ public class Main3Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
 
-        final ImageView image1 = findViewById(R.id.imageView7);
-        final ImageView image2 = findViewById(R.id.imageView8);
-        final ImageView image3 = findViewById(R.id.imageView9);
-        final ImageView image4 = findViewById(R.id.imageView10);
-        final ImageView image5 = findViewById(R.id.imageView11);
-        final ImageView image6 = findViewById(R.id.imageView12);
-        final ImageView image7 = findViewById(R.id.imageView13);
-        final ImageView image8 = findViewById(R.id.imageView14);
-        final ImageView image9 = findViewById(R.id.imageView15);
-        final ImageView image10 = findViewById(R.id.imageView16);
-        final ImageView image11 = findViewById(R.id.imageView17);
-        final ImageView image12 = findViewById(R.id.imageView18);
-        final ImageView image13 = findViewById(R.id.imageView19);
-        final ImageView image14 = findViewById(R.id.imageView20);
-        final ImageView image15 = findViewById(R.id.imageView21);
-        final ImageView image16 = findViewById(R.id.imageView22);
+        final ImageView image1 = findViewById(R.id.imageViewA);
+        final ImageView image2 = findViewById(R.id.imageViewB);
+        final ImageView image3 = findViewById(R.id.imageViewC);
+        final ImageView image4 = findViewById(R.id.imageViewD);
+        final ImageView image5 = findViewById(R.id.imageViewE);
+        final ImageView image6 = findViewById(R.id.imageViewF);
+        final ImageView image7 = findViewById(R.id.imageViewG);
+        final ImageView image8 = findViewById(R.id.imageViewH);
+        final ImageView image9 = findViewById(R.id.imageViewI);
+        final ImageView image10 = findViewById(R.id.imageViewJ);
+        final ImageView image11 = findViewById(R.id.imageViewK);
+        final ImageView image12 = findViewById(R.id.imageViewL);
+        final ImageView image13 = findViewById(R.id.imageViewM);
+        final ImageView image14 = findViewById(R.id.imageViewN);
+        final ImageView image15 = findViewById(R.id.imageViewO);
+        final ImageView image16 = findViewById(R.id.imageViewP);
 
         image1.setImageDrawable(getWaifuImage(1));
         image2.setImageDrawable(getWaifuImage(2));
@@ -96,57 +96,74 @@ public class Main3Activity extends AppCompatActivity {
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
         waifuImage wi;
         String imagePath = null;
+
+        Intent mIntent = new Intent(this, DisplayActivity.class);
         switch (view.getId()) {
-            case R.id.imageView7:
+            case R.id.imageViewA:
                 wi = dbHandler.findImage(1);
                 imagePath = wi.get_imagePath();
-            case R.id.imageView8:
+                break;
+            case R.id.imageViewB:
                 wi = dbHandler.findImage(2);
                 imagePath = wi.get_imagePath();
-            case R.id.imageView9:
+                break;
+            case R.id.imageViewC:
                 wi = dbHandler.findImage(3);
                 imagePath = wi.get_imagePath();
-            case R.id.imageView10:
+                break;
+            case R.id.imageViewD:
                 wi = dbHandler.findImage(4);
                 imagePath = wi.get_imagePath();
-            case R.id.imageView11:
+                break;
+            case R.id.imageViewE:
                 wi = dbHandler.findImage(5);
                 imagePath = wi.get_imagePath();
-            case R.id.imageView12:
+                break;
+            case R.id.imageViewF:
                 wi = dbHandler.findImage(6);
                 imagePath = wi.get_imagePath();
-            case R.id.imageView13:
+                break;
+            case R.id.imageViewG:
                 wi = dbHandler.findImage(7);
                 imagePath = wi.get_imagePath();
-            case R.id.imageView14:
+                break;
+            case R.id.imageViewH:
                 wi = dbHandler.findImage(8);
                 imagePath = wi.get_imagePath();
-            case R.id.imageView15:
+                break;
+            case R.id.imageViewI:
                 wi = dbHandler.findImage(9);
                 imagePath = wi.get_imagePath();
-            case R.id.imageView16:
+                break;
+            case R.id.imageViewJ:
                 wi = dbHandler.findImage(10);
                 imagePath = wi.get_imagePath();
-            case R.id.imageView17:
+                break;
+            case R.id.imageViewK:
                 wi = dbHandler.findImage(11);
                 imagePath = wi.get_imagePath();
-            case R.id.imageView18:
+                break;
+            case R.id.imageViewL:
                 wi = dbHandler.findImage(12);
                 imagePath = wi.get_imagePath();
-            case R.id.imageView19:
+                break;
+            case R.id.imageViewM:
                 wi = dbHandler.findImage(13);
                 imagePath = wi.get_imagePath();
-            case R.id.imageView20:
+                break;
+            case R.id.imageViewN:
                 wi = dbHandler.findImage(14);
                 imagePath = wi.get_imagePath();
-            case R.id.imageView21:
+                break;
+            case R.id.imageViewO:
                 wi = dbHandler.findImage(15);
                 imagePath = wi.get_imagePath();
-            case R.id.imageView22:
+                break;
+            case R.id.imageViewP:
                 wi = dbHandler.findImage(16);
                 imagePath = wi.get_imagePath();
+                break;
         }//end switch
-        Intent mIntent = new Intent(this, DisplayActivity.class);
         mIntent.putExtra("Path", imagePath);
         startActivity(mIntent);
     }

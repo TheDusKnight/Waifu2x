@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ public class Main2Activity extends AppCompatActivity {
 
     String filePath;
     String cachePath;
+    String fileName;
     boolean flip = true;
     ImageView image_new;
     ImageView image_old;
@@ -46,6 +48,8 @@ public class Main2Activity extends AppCompatActivity {
 
         image_new = findViewById(R.id.imageView);
         image_old = findViewById(R.id.imageView_old);
+        ImageView dl = findViewById(R.id.imageView3);
+        dl.setClickable(true);
 
         Intent mIntent = getIntent();
         String uriString = mIntent.getStringExtra("Image");
@@ -60,20 +64,28 @@ public class Main2Activity extends AppCompatActivity {
 
         //still need converted image for image_new
         //preparing to store new image into cache and SQLite database
+
+        //My test image
+        //String example = Environment.getExternalStorageDirectory().getAbsolutePath() + "/download/pusheen-1.jpg";
         File file;
-        String filename = "";
+        fileName = "Waifu2x_" + System.currentTimeMillis() + ".png";
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
         try {
-            file = File.createTempFile(filename, null, getCacheDir());
+            file = new File(getCacheDir(), fileName);
             cachePath = file.getAbsolutePath();
             //will need to edit if converted image does not come from file
             downloadToFile("", cachePath);
+
+            //My test image
+            //downloadToFile(example, cachePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         waifuImage wi = new waifuImage(1, cachePath);
         dbHandler.addImage(wi, wi.get_id());
+
+        image_new.setImageDrawable(Drawable.createFromPath(wi.get_imagePath()));
 
 
         //Letting user swipe to change between images
@@ -149,8 +161,8 @@ public class Main2Activity extends AppCompatActivity {
                 + "/Waifu2x Images/");
         dir.mkdirs();
 
-        //need a way to get or create image name
-        File file = new File(dir, "sample.png");
+
+        File file = new File(dir, fileName);
         filePath = file.getAbsolutePath();
         try {
             downloadToFile(cachePath, filePath);
@@ -168,8 +180,8 @@ public class Main2Activity extends AppCompatActivity {
         URL url = new URL(fileUri.toString());
         URLConnection connection = url.openConnection();
         connection.connect();
-        int lenghtOfFile = connection.getContentLength();
-        Log.d("ANDRO_ASYNC", "Lenght of file: " + lenghtOfFile);
+        int lengthOfFile = connection.getContentLength();
+        Log.d("ANDRO_ASYNC", "Length of file: " + lengthOfFile);
         InputStream input = new BufferedInputStream(url.openStream());
         OutputStream output = new FileOutputStream(destination);
         byte data[] = new byte[1024];

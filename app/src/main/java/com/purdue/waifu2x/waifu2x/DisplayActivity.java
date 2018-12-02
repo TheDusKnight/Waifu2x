@@ -20,10 +20,10 @@ public class DisplayActivity extends AppCompatActivity {
         Intent mIntent = getIntent();
         String path = mIntent.getStringExtra("Path");
         ImageView imageView = findViewById(R.id.imageView5);
-        if (path == null) {
-            imageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.image, null));
-        } else {
+        if (path != null) {
             imageView.setImageDrawable(Drawable.createFromPath(path));
+        } else {
+            imageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.image, null));
         }
     }
 
