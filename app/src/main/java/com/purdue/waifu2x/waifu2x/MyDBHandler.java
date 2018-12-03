@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.File;
+
 public class MyDBHandler extends SQLiteOpenHelper {
     //The methods used to access the SQLite Database
 
@@ -56,10 +58,12 @@ public class MyDBHandler extends SQLiteOpenHelper {
                     c.close();
                 }
             }
-            //Checking for and deleting excess rows
+            //Checking for and deleting excess rows and cache files
             String query2 = "Select * From " + TABLE_waifu + " Where " + COLUMN_ID + " = 17";
             Cursor c2 = db.rawQuery(query2, null);
             if (c2.getCount() > 0) {
+                File file = new File(findImage(17).get_imagePath());
+                boolean deleted = file.delete();
                 deleteImage(17);
             }
         } //end if

@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.support.v4.content.FileProvider;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -63,6 +64,7 @@ public class Main2Activity extends AppCompatActivity {
         }
 
         //still need converted image for image_new
+
         //preparing to store new image into cache and SQLite database
 
         //My test image
@@ -157,21 +159,26 @@ public class Main2Activity extends AppCompatActivity {
     public void download(View view) {
 
         //Creating a folder to save images in
-        File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+        File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
                 + "/Waifu2x Images/");
         dir.mkdirs();
-
 
         File file = new File(dir, fileName);
         filePath = file.getAbsolutePath();
         try {
             downloadToFile(cachePath, filePath);
-            Toast.makeText(this,"Image downloaded", Toast.LENGTH_LONG);
+            Toast.makeText(this,"Image downloaded", Toast.LENGTH_LONG).show();
             view.setClickable(false);
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Image could not be downloaded", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Image could not be downloaded", Toast.LENGTH_LONG).show();
         }
+
+        //Adding image to media library
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri contentUri = Uri.fromFile(file);
+        mediaScanIntent.setData(contentUri);
+        Main2Activity.this.sendBroadcast(mediaScanIntent);
     }
 
     public void downloadToFile (String source, String destination) throws IOException {
@@ -194,9 +201,11 @@ public class Main2Activity extends AppCompatActivity {
         output.flush();
         output.close();
         input.close();
+
     }
 
     public void undo(View view) {
+        finish();
     }
 
     public void Start(View view) {
