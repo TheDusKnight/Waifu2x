@@ -162,8 +162,13 @@ public class Main3Activity extends AppCompatActivity {
                 imagePath = wi.get_imagePath();
                 break;
         }//end switch
-        mIntent.putExtra("Path", imagePath);
-        startActivity(mIntent);
+
+        if (imagePath == null) {
+            Toast.makeText(this, "Not a valid image", Toast.LENGTH_SHORT).show();
+        } else {
+            mIntent.putExtra("Path", imagePath);
+            startActivity(mIntent);
+        }
     }
 
     public void Start(View view) {
