@@ -7,13 +7,27 @@
     android:background="#555555"
     tools:context=".DisplayActivity">
 
-    <Button
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"><Button
         android:id="@+id/button7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.50"
         android:text="Back"
         android:onClick="Back"/>
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:alpha="0.50"
+            android:visibility="gone"
+            android:onClick="Download"
+            android:text="Download" />
+    </android.support.constraint.ConstraintLayout>
 
     <ImageView
         android:id="@+id/imageView5"

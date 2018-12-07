@@ -32,6 +32,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Arrays;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -160,7 +161,7 @@ public class Main2Activity extends AppCompatActivity {
 
         //Creating a folder to save images in
         File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
-                + "/Waifu2x Images/");
+                + "/Waifu2x_Images/");
         dir.mkdirs();
 
         File file = new File(dir, fileName);
@@ -182,7 +183,7 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     public void downloadToFile (String source, String destination) throws IOException {
-        File file = new File(source);
+        /*File file = new File(source);
         Uri fileUri = Uri.fromFile(file);
         URL url = new URL(fileUri.toString());
         URLConnection connection = url.openConnection();
@@ -200,7 +201,24 @@ public class Main2Activity extends AppCompatActivity {
         }
         output.flush();
         output.close();
-        input.close();
+        input.close();*/
+
+        File sourceFile = new File(source);
+        File destFile = new File(destination);
+        final int chunkSize = 1024;  // We'll read in one kB at a time
+        byte[] imageData = new byte[chunkSize];
+        try {
+            InputStream in = getContentResolver().openInputStream(Uri.fromFile(sourceFile));
+            OutputStream out = new FileOutputStream(destFile);
+            int bytesRead;
+            while ((bytesRead = in.read(imageData)) > 0) {
+                out.write(Arrays.copyOfRange(imageData, 0, Math.max(0, bytesRead)));
+            }
+            in.close();
+            out.flush();
+            out.close();
+        } catch (Exception ex) {
+            ex.getStackTrace(); }
 
     }
 
