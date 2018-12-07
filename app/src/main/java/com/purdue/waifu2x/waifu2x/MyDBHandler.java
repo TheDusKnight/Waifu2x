@@ -43,7 +43,16 @@ public class MyDBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         //Making the newest entry the first row
         if (id == 1) {
-            for (int i = 1; i < 16; i++) {
+            //Checking for and deleting the soon-to-be excess row and cache file
+            String query2 = "Select * From " + TABLE_waifu + " Where " + COLUMN_ID + " = 16";
+            Cursor c2 = db.rawQuery(query2, null);
+            if (c2.getCount() > 0) {
+                File file = new File(findImage(16).get_imagePath());
+                boolean deleted = file.delete();
+                deleteImage(16);
+            }
+            //Updating the ID of the other rows
+            for (int i = 15; i > 0; i--) {
                 ContentValues newValues = new ContentValues();
                 newValues.put(COLUMN_ID, i + 1);
 
@@ -52,20 +61,13 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 waifuImage oldwi = new waifuImage();
 
                 if (c.moveToFirst()) {
-                    wi.set_id(Integer.parseInt(c.getString(0)));
+                    oldwi.set_id(Integer.parseInt(c.getString(0)));
                     db.update(TABLE_waifu, newValues, COLUMN_ID + " = ?",
                             new String[] { String.valueOf(oldwi.get_id())} );
                     c.close();
                 }
             }
-            //Checking for and deleting excess rows and cache files
-            String query2 = "Select * From " + TABLE_waifu + " Where " + COLUMN_ID + " = 17";
-            Cursor c2 = db.rawQuery(query2, null);
-            if (c2.getCount() > 0) {
-                File file = new File(findImage(17).get_imagePath());
-                boolean deleted = file.delete();
-                deleteImage(17);
-            }
+
         } //end if
 
         db.insert(TABLE_waifu, null, values);

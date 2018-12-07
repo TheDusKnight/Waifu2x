@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.50"
-        android:text="Back"
+        android:text="@string/back"
         android:onClick="Back"/>
 
         <Button
@@ -26,13 +26,14 @@
             android:alpha="0.50"
             android:visibility="gone"
             android:onClick="Download"
-            android:text="Download" />
+            android:text="@string/download" />
     </android.support.constraint.ConstraintLayout>
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/image" />
+        app:srcCompat="@drawable/image"
+        android:contentDescription="@string/iv_content" />
 
 </FrameLayout>

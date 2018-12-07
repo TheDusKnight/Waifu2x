@@ -36,11 +36,7 @@ public class DisplayActivity extends AppCompatActivity {
         Intent mIntent = getIntent();
         cachePath = mIntent.getStringExtra("Path");
         ImageView imageView = findViewById(R.id.imageView5);
-        if (cachePath != null) {
-            imageView.setImageDrawable(Drawable.createFromPath(cachePath));
-        } else {
-            imageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.image, null));
-        }
+        imageView.setImageDrawable(Drawable.createFromPath(cachePath));
 
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
                 + "/Waifu2x_Images/" + cachePath.substring(cachePath.lastIndexOf("Waifu")));

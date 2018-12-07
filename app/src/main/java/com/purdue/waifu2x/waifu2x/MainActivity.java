@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -42,8 +43,7 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     ImageView imageView1;
-    Uri selectedImage;
-    private String creatTime;
+    Uri selectedImage = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         imageView1 = findViewById(R.id.imageView);
+
+        //Creating a folder to save images in
+        File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
+                + "/Waifu2x_Images/");
+        dir.mkdirs();
     }
 
     public void choose_image(View view) {
@@ -103,8 +108,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void convert(View view) {
         Intent mIntent=new Intent(this, Main2Activity.class);
-        mIntent.putExtra("Image", selectedImage.toString());
-        startActivity(mIntent);
+        if (selectedImage != null) {
+            mIntent.putExtra("Image", selectedImage.toString());
+            startActivity(mIntent);
+        } else {
+            Toast.makeText(this, "Oops, you need to select an image", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
