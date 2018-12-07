@@ -40,4 +40,7 @@
     <string name="thank_you">  Thank you for using this APP! If you like it, please rate this app and leave some comments on Google Appstore.\n
         Developers: Xirui Zhong, Shuai Shao, Andrea Nguyen</string>
     <string name="tod23">TOD23</string>
+    <string name="download">Download</string>
+    <string name="back">Back</string>
+    <string name="iv_content">Enlarged Image</string>
 </resources>

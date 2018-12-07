@@ -52,7 +52,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 waifuImage oldwi = new waifuImage();
 
                 if (c.moveToFirst()) {
-                    wi.set_id(Integer.parseInt(c.getString(0)));
+                    oldwi.set_id(Integer.parseInt(c.getString(0)));
                     db.update(TABLE_waifu, newValues, COLUMN_ID + " = ?",
                             new String[] { String.valueOf(oldwi.get_id())} );
                     c.close();
