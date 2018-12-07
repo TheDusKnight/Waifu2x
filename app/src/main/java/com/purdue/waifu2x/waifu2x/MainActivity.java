@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -43,7 +44,6 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity {
     ImageView imageView1;
     Uri selectedImage = null;
-    private String creatTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         imageView1 = findViewById(R.id.imageView);
+
+        //Creating a folder to save images in
+        File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
+                + "/Waifu2x_Images/");
+        dir.mkdirs();
     }
 
     public void choose_image(View view) {

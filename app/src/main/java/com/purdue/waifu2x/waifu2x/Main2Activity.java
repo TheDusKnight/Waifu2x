@@ -77,10 +77,10 @@ public class Main2Activity extends AppCompatActivity {
             file = new File(getCacheDir(), fileName);
             cachePath = file.getAbsolutePath();
             //will need to edit if converted image does not come from file
-            downloadToFile("", cachePath);
+            //downloadToFile("", cachePath);
 
             //My test image
-            //downloadToFile(example, cachePath);
+            downloadToFile(example, cachePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -163,7 +163,6 @@ public class Main2Activity extends AppCompatActivity {
         //Creating a folder to save images in
         File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
                 + "/Waifu2x_Images/");
-        dir.mkdirs();
 
         File file = new File(dir, fileName);
         filePath = file.getAbsolutePath();
