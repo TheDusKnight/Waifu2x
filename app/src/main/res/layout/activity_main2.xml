@@ -35,6 +35,12 @@
             app:srcCompat="?android:attr/windowBackground" />
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
     <Button
         android:id="@+id/button3"
         android:layout_width="110dp"
@@ -42,6 +48,14 @@
         android:layout_gravity="center_horizontal"
         android:onClick="compare"
         android:text="@string/compare" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+
+        android:text="Download and show" />
 
     <LinearLayout
         android:layout_width="match_parent"
