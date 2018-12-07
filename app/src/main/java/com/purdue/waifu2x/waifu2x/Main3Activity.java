@@ -51,8 +51,6 @@ public class Main3Activity extends AppCompatActivity {
         image14.setImageDrawable(getWaifuImage(14));
         image15.setImageDrawable(getWaifuImage(15));
         image16.setImageDrawable(getWaifuImage(16));
-
-
     }
 
     private Drawable getWaifuImage(int i) {

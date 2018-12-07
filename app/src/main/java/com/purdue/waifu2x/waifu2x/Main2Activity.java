@@ -69,9 +69,9 @@ public class Main2Activity extends AppCompatActivity {
         //preparing to store new image into cache and SQLite database
 
         //My test image
-        //String example = Environment.getExternalStorageDirectory().getAbsolutePath() + "/download/pusheen-1.jpg";
+        String example = Environment.getExternalStorageDirectory().getAbsolutePath() + "/download/pusheen-1.jpg";
         File file;
-        fileName = "Waifu2x_" + System.currentTimeMillis() + ".png";
+        fileName = "Waifu2x_" + System.currentTimeMillis() + ".jpg";
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
         try {
             file = new File(getCacheDir(), fileName);
@@ -153,6 +153,7 @@ public class Main2Activity extends AppCompatActivity {
         shareImage.setType("image/*");
         File file = new File(cachePath);
         Uri imageUri = FileProvider.getUriForFile(this, "com.purdue.waifu2x.waifu2x.fileprovider", file);
+        shareImage.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         shareImage.putExtra(Intent.EXTRA_STREAM, imageUri);
         startActivity(Intent.createChooser(shareImage, "Share via"));
     }
