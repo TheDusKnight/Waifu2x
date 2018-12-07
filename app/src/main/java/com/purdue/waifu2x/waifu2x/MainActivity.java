@@ -42,7 +42,7 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     ImageView imageView1;
-    Uri selectedImage;
+    Uri selectedImage = null;
     private String creatTime;
 
     @Override
@@ -103,8 +103,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void convert(View view) {
         Intent mIntent=new Intent(this, Main2Activity.class);
-        mIntent.putExtra("Image", selectedImage.toString());
-        startActivity(mIntent);
+        if (selectedImage != null) {
+            mIntent.putExtra("Image", selectedImage.toString());
+            startActivity(mIntent);
+        } else {
+            Toast.makeText(this, "Oops, you need to select an image", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

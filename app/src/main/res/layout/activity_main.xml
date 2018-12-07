@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,13 +8,115 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:contentDescription="@string/todo"
+        app:srcCompat="@drawable/image" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_weight="1"
+            android:autofillHints="@string/username"
+            android:ems="10"
+            android:hint="@string/username"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_marginEnd="11dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginEnd="5dp"
+            android:gravity="center"
+            android:text="@string/image_choosing"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:onClick="choose_image"
+            android:layout_gravity="center"
+            android:text="@string/choose_image" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="11dp"
+            android:text="@string/noise_reduction"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <CheckBox
+            android:id="@+id/checkBox4"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:text="@string/low" />
+
+        <CheckBox
+            android:id="@+id/checkBox5"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:text="@string/medium" />
+
+        <CheckBox
+            android:id="@+id/checkBox6"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:text="@string/high"/>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="convert"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/convert" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
         android:orientation="horizontal">
 
         <Button
@@ -23,8 +125,7 @@
             android:layout_height="match_parent"
             android:layout_weight="33"
             android:onClick="Start"
-            android:text="@string/start"
-            tools:ignore="ButtonStyle" />
+            android:text="@string/start"/>
 
         <Button
             android:id="@+id/button5"
@@ -32,8 +133,7 @@
             android:layout_height="match_parent"
             android:layout_weight="33"
             android:onClick="Library"
-            android:text="@string/library"
-            tools:ignore="ButtonStyle" />
+            android:text="@string/library" />
 
         <Button
             android:id="@+id/button6"
@@ -41,153 +141,7 @@
             android:layout_height="match_parent"
             android:layout_weight="33"
             android:onClick="About"
-            android:text="@string/about"
-            tools:ignore="ButtonStyle" />
+            android:text="@string/about" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="181dp"
-        android:layout_height="210dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="1dp"
-        android:contentDescription="@string/todo"
-        app:srcCompat="@drawable/image" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="201dp"
-        android:gravity="center"
-        android:text="@string/image_choosing"
-        android:textColor="@color/colorPrimaryDark" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:layout_alignTop="@+id/textView"
-        android:layout_alignEnd="@+id/checkBox5"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
-        android:onClick="choose_image"
-        android:text="@string/choose_image" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="151dp"
-        android:gravity="center"
-        android:text="@string/style"
-        android:textColor="@color/colorPrimaryDark" />
-
-    <CheckBox
-        android:id="@+id/checkBox2"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="129dp"
-        android:layout_marginTop="0dp"
-        android:text="@string/artwork"
-        tools:ignore="RelativeOverlap" />
-
-    <CheckBox
-        android:id="@+id/checkBox3"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="58dp"
-        android:text="@string/photo"
-        tools:ignore="RelativeOverlap" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="101dp"
-        android:gravity="center"
-        android:text="@string/noise_reduction"
-        android:textColor="@color/colorPrimaryDark" />
-
-    <CheckBox
-        android:id="@+id/checkBox4"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignStart="@+id/checkBox2"
-        android:layout_alignTop="@+id/textView3"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:text="@string/low" />
-
-    <CheckBox
-        android:id="@+id/checkBox5"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignTop="@+id/textView3"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="83dp"
-        android:text="@string/medium"
-        tools:ignore="RelativeOverlap" />
-
-    <CheckBox
-        android:id="@+id/checkBox6"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignTop="@+id/textView3"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:layout_toEndOf="@+id/button"
-        android:text="@string/high"
-        tools:ignore="RelativeOverlap" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="127dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="46dp"
-        android:onClick="convert"
-        android:text="@string/convert" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="157dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="214dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="UserName" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="188dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/editText"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="0dp"
-        android:layout_toEndOf="@+id/editText"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Password" />
-
-</RelativeLayout>
+</LinearLayout>
