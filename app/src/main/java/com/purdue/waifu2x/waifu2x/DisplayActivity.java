@@ -27,54 +27,18 @@ import java.util.Arrays;
 public class DisplayActivity extends AppCompatActivity {
 
     String filePath;
-    String cachePath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
 
         Intent mIntent = getIntent();
-        cachePath = mIntent.getStringExtra("Path");
+        filePath = mIntent.getStringExtra("Path");
         ImageView imageView = findViewById(R.id.imageView5);
-        imageView.setImageDrawable(Drawable.createFromPath(cachePath));
-
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
-                + "/Waifu2x_Images/" + cachePath.substring(cachePath.lastIndexOf("Waifu")));
-        filePath = file.getAbsolutePath();
-
-        //Checking if file exists and displaying the download button if it doesn't
-        if (file.exists()) {
-            Toast.makeText(this, "This image has already been downloaded", Toast.LENGTH_SHORT).show();
-        } else {
-            Button download = findViewById(R.id.button8);
-            download.setVisibility(View.VISIBLE);
-        }
+        imageView.setImageDrawable(Drawable.createFromPath(filePath));
     }
 
     public void Back(View view) {
         finish();
-    }
-
-    public void Download(View view) {
-        File file = new File(filePath);
-        File cacheFile = new File(cachePath);
-        final int chunkSize = 1024;
-        byte[] imageData = new byte[chunkSize];
-        try {
-            InputStream in = getContentResolver().openInputStream(Uri.fromFile(cacheFile));
-            OutputStream out = new FileOutputStream(file);
-            int bytesRead;
-            while ((bytesRead = in.read(imageData)) > 0) {
-                out.write(Arrays.copyOfRange(imageData, 0, Math.max(0, bytesRead)));
-            }
-            in.close();
-            out.flush();
-            out.close();
-        } catch (Exception ex) {
-            ex.getStackTrace(); }
-
-        Toast.makeText(this, "Image Downloaded", Toast.LENGTH_SHORT).show();
-        //Disabling Download button after download
-        view.setVisibility(View.GONE);
     }
 }

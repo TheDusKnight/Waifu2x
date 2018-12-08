@@ -49,14 +49,6 @@
         android:onClick="compare"
         android:text="@string/compare" />
 
-    <Button
-        android:id="@+id/button9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-
-        android:text="Download and show" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -74,16 +66,31 @@
             android:onClick="share"
             app:srcCompat="@drawable/share" />
 
-        <ImageView
-            android:id="@+id/imageView3"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:contentDescription="@string/tod1"
-            android:focusable="true"
-            android:onClick="download"
-            app:srcCompat="@drawable/download" />
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:layout_marginTop="15dp"
+                android:contentDescription="@string/tod1"
+                android:focusable="true"
+                android:onClick="onClick"
+                app:srcCompat="@drawable/download" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/download_and_show"
+                android:textAlignment="center" />
+        </FrameLayout>
+
 
         <ImageView
             android:id="@+id/imageView4"

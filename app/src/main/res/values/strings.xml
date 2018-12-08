@@ -45,4 +45,5 @@
     <string name="iv_content">Enlarged Image</string>
     <string name="username">UserName</string>
     <string name="password">Password</string>
+    <string name="download_and_show">Download and Show</string>
 </resources>
