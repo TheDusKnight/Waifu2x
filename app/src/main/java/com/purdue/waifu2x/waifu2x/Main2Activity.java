@@ -148,9 +148,9 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
     public void init(){
         //获取控件对象
-        buttonDownLoad = (Button) findViewById(R.id.button9);
-        //设置控件对应相应函数
-        buttonDownLoad.setOnClickListener(this);
+//        buttonDownLoad = (Button) findViewById(R.id.button9);
+//        //设置控件对应相应函数
+//        buttonDownLoad.setOnClickListener(this);
 //        sftp = new SFTPUtils("SFTP服务器IP", "用户名","密码");
         sftp = new SFTPUtils("35.237.124.24", "ftpuser","uiuc626");
 //        sftp = new SFTPUtils("35.229.127.84", "ftpuser","uiuc626");
@@ -255,7 +255,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
                 switch (v.getId()) {
 
-                    case R.id.button9: {
+                    case R.id.imageView3: {
                         //下载文件
                         Log.d(TAG,"下载文件");
 //                        String remotePath = "test";
