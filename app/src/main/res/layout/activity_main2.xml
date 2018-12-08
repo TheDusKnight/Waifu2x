@@ -51,8 +51,8 @@
 
     <Button
         android:id="@+id/button9"
-        android:layout_width="110dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
 
         android:text="Download and show" />

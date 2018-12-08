@@ -76,8 +76,8 @@ import java.util.Vector;
 public class Main2Activity extends AppCompatActivity implements View.OnClickListener{
 
     String filePath;
-    String cachePath;
-    String fileName;
+//    String cachePath;
+//    String fileName;
     boolean flip = true;
     ImageView image_new;
     ImageView image_old;
@@ -109,33 +109,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        //still need converted image for image_new
-
-        //preparing to store new image into cache and SQLite database
-
-        //My test image
-        String example = Environment.getExternalStorageDirectory().getAbsolutePath() + "/download/pusheen-1.jpg";
-        File file;
-        fileName = "Waifu2x_" + System.currentTimeMillis() + ".jpg";
-        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
-        try {
-            file = new File(getCacheDir(), fileName);
-            cachePath = file.getAbsolutePath();
-            //will need to edit if converted image does not come from file
-            //downloadToFile("", cachePath);
-
-            //My test image
-            downloadToFile(example, cachePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        waifuImage wi = new waifuImage(1, cachePath);
-        dbHandler.addImage(wi, wi.get_id());
-
-        image_new.setImageDrawable(Drawable.createFromPath(wi.get_imagePath()));
-
 
         //Letting user swipe to change between images
         FrameLayout myLayout = findViewById(R.id.frame);
@@ -173,13 +146,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    //    public void compare(View view) {
-//        Intent mIntent=new Intent(this, MainActivity.class);
-//        startActivity(mIntent);
-//    }
-
-
-
     public void init(){
         //获取控件对象
         buttonDownLoad = (Button) findViewById(R.id.button9);
@@ -210,14 +176,14 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     public void share(View view) {
         Intent shareImage = new Intent(Intent.ACTION_SEND);
         shareImage.setType("image/*");
-        File file = new File(cachePath);
+        File file = new File(filePath);
         Uri imageUri = FileProvider.getUriForFile(this, "com.purdue.waifu2x.waifu2x.fileprovider", file);
         shareImage.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         shareImage.putExtra(Intent.EXTRA_STREAM, imageUri);
         startActivity(Intent.createChooser(shareImage, "Share via"));
     }
 
-    public void download(View view) {
+/*    public void download(View view) {
 
         //Creating a folder to save images in
         File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
@@ -234,33 +200,9 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, "Image could not be downloaded", Toast.LENGTH_LONG).show();
         }
 
-        //Adding image to media library
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        Uri contentUri = Uri.fromFile(file);
-        mediaScanIntent.setData(contentUri);
-        Main2Activity.this.sendBroadcast(mediaScanIntent);
-    }
+    }*/
 
-    public void downloadToFile (String source, String destination) throws IOException {
-        /*File file = new File(source);
-        Uri fileUri = Uri.fromFile(file);
-        URL url = new URL(fileUri.toString());
-        URLConnection connection = url.openConnection();
-        connection.connect();
-        int lengthOfFile = connection.getContentLength();
-        Log.d("ANDRO_ASYNC", "Length of file: " + lengthOfFile);
-        InputStream input = new BufferedInputStream(url.openStream());
-        OutputStream output = new FileOutputStream(destination);
-        byte data[] = new byte[1024];
-        long total = 0;
-        int count;
-        while ((count = input.read(data)) != -1) {
-            total += count;
-            output.write(data, 0, count);
-        }
-        output.flush();
-        output.close();
-        input.close();*/
+/*    public void downloadToFile (String source, String destination) throws IOException {
 
         File sourceFile = new File(source);
         File destFile = new File(destination);
@@ -279,7 +221,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         } catch (Exception ex) {
             ex.getStackTrace(); }
 
-    }
+    }*/
 
     public void undo(View view) {
         finish();
@@ -302,6 +244,9 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(final View v) {
+        final String txt1 = txt.getText().toString();
+        final String localPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
+                + "/Waifu2x_Images/";
         new Thread() {
             @Override
             public void run() {
@@ -311,12 +256,8 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 switch (v.getId()) {
 
                     case R.id.button9: {
-
-                        String txt1 = txt.getText().toString();
-
                         //下载文件
                         Log.d(TAG,"下载文件");
-                        String localPath = "sdcard/Waifu2x Images/";
 //                        String remotePath = "test";
                         String remotePath = "/ftpuser/";
                         sftp.connect();
@@ -333,6 +274,23 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 }
             }
         }.start();
+        File file =  new File(localPath + txt1);
+        filePath = file.getAbsolutePath();
+        if (file.exists()) {
+            image_new.setImageDrawable(Drawable.createFromPath(filePath));
+
+            MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+            waifuImage wi = new waifuImage(1, filePath);
+            dbHandler.addImage(wi, wi.get_id());
+
+            //Adding image to media library
+            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            Uri contentUri = Uri.fromFile(file);
+            mediaScanIntent.setData(contentUri);
+            Main2Activity.this.sendBroadcast(mediaScanIntent);
+        } else {
+            Toast.makeText(this, "File has not been downloaded", Toast.LENGTH_SHORT).show();
+        }
     };
 
     public class SFTPUtils {
