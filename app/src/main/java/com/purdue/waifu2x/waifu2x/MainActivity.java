@@ -243,32 +243,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         /**
-         * 单个文件下载
-         *
-         * @param remotePath
-         * @param remoteFileName
-         * @param localPath
-         * @param localFileName
-         * @return
-         */
-        public boolean downloadFile(String remotePath, String remoteFileName,
-                                    String localPath, String localFileName) {
-            try {
-                sftp.cd(remotePath);
-                File file = new File(localPath + localFileName);
-//                mkdirs(localPath + localFileName);
-                sftp.get(remoteFileName, new FileOutputStream(file));
-                return true;
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (SftpException e) {
-                e.printStackTrace();
-            }
-
-            return false;
-        }
-
-        /**
          * 单个文件上传
          *
          * @param remotePath
@@ -309,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return false;
         }
     }
-    
+
     public void Start(View view) {
         Intent mIntent=new Intent(this, MainActivity.class);
         startActivity(mIntent);
