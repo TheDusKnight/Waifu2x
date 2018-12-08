@@ -247,6 +247,8 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         final String txt1 = txt.getText().toString();
         final String localPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
                 + "/Waifu2x_Images/";
+        File dir = new File(localPath);
+        dir.mkdirs();
         new Thread() {
             @Override
             public void run() {
