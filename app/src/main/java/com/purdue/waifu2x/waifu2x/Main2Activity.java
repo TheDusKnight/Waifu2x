@@ -262,7 +262,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                         //下载文件
                         Log.d(TAG,"下载文件");
 //                        String remotePath = "test";
-                        String remotePath = "/ftpuser/";
+                        String remotePath = "/photo/";
                         sftp.connect();
                         Log.d(TAG,"连接成功");
                         sftp.downloadFile(remotePath, txt1, localPath, txt1);
