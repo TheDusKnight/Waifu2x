@@ -247,6 +247,9 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         final String txt1 = txt.getText().toString();
         final String localPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
                 + "/Waifu2x_Images/";
+
+        File dir = new File(localPath);
+        dir.mkdirs();
         new Thread() {
             @Override
             public void run() {
@@ -289,7 +292,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             mediaScanIntent.setData(contentUri);
             Main2Activity.this.sendBroadcast(mediaScanIntent);
         } else {
-            Toast.makeText(this, "File has not been downloaded", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Still converting, please wait", Toast.LENGTH_SHORT).show();
         }
     };
 
