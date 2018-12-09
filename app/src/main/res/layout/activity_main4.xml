@@ -62,7 +62,8 @@
             android:layout_weight="50"
             android:text="@string/thank_you"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:ignore="UnusedAttribute" />
 
         <ImageView
             android:id="@+id/imageView23"

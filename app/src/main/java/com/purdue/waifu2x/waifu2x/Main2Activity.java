@@ -1,16 +1,10 @@
 package com.purdue.waifu2x.waifu2x;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.support.v4.content.FileProvider;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,37 +17,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Arrays;
 
-
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
@@ -63,11 +33,7 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Vector;
@@ -147,11 +113,10 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     }
 
     public void init(){
-        //获取控件对象
+
 //        buttonDownLoad = (Button) findViewById(R.id.button9);
-//        //设置控件对应相应函数
 //        buttonDownLoad.setOnClickListener(this);
-//        sftp = new SFTPUtils("SFTP服务器IP", "用户名","密码");
+//        sftp = new SFTPUtils("SFTP server IP", "username","password");
         sftp = new SFTPUtils("35.237.124.24", "ftpuser","uiuc626");
 //        sftp = new SFTPUtils("35.229.127.84", "ftpuser","uiuc626");
     }
@@ -182,46 +147,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         shareImage.putExtra(Intent.EXTRA_STREAM, imageUri);
         startActivity(Intent.createChooser(shareImage, "Share via"));
     }
-
-/*    public void download(View view) {
-
-        //Creating a folder to save images in
-        File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
-                + "/Waifu2x_Images/");
-
-        File file = new File(dir, fileName);
-        filePath = file.getAbsolutePath();
-        try {
-            downloadToFile(cachePath, filePath);
-            Toast.makeText(this,"Image downloaded", Toast.LENGTH_LONG).show();
-            view.setClickable(false);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Image could not be downloaded", Toast.LENGTH_LONG).show();
-        }
-
-    }*/
-
-/*    public void downloadToFile (String source, String destination) throws IOException {
-
-        File sourceFile = new File(source);
-        File destFile = new File(destination);
-        final int chunkSize = 1024;  // We'll read in one kB at a time
-        byte[] imageData = new byte[chunkSize];
-        try {
-            InputStream in = getContentResolver().openInputStream(Uri.fromFile(sourceFile));
-            OutputStream out = new FileOutputStream(destFile);
-            int bytesRead;
-            while ((bytesRead = in.read(imageData)) > 0) {
-                out.write(Arrays.copyOfRange(imageData, 0, Math.max(0, bytesRead)));
-            }
-            in.close();
-            out.flush();
-            out.close();
-        } catch (Exception ex) {
-            ex.getStackTrace(); }
-
-    }*/
 
     public void undo(View view) {
         finish();
@@ -254,21 +179,20 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             @Override
             public void run() {
 
-                //这里写入子线程需要做的工作
 
                 switch (v.getId()) {
 
                     case R.id.imageView3: {
-                        //下载文件
-                        Log.d(TAG,"下载文件");
+                        //download
+                        Log.d(TAG,"Download");
 //                        String remotePath = "test";
                         String remotePath = "/photo/";
                         sftp.connect();
-                        Log.d(TAG,"连接成功");
+                        Log.d(TAG,"Connected");
                         sftp.downloadFile(remotePath, txt1, localPath, txt1);
-                        Log.d(TAG,"下载成功");
+                        Log.d(TAG,"Downloaded");
                         sftp.disconnect();
-                        Log.d(TAG,"断开连接");
+                        Log.d(TAG,"Disconnected");
 
                     }
                     break;
@@ -280,17 +204,22 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         File file =  new File(localPath + txt1);
         filePath = file.getAbsolutePath();
         if (file.exists()) {
-            image_new.setImageDrawable(Drawable.createFromPath(filePath));
+            Drawable d = Drawable.createFromPath(filePath);
+            image_new.setImageDrawable(d);
 
             MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
             waifuImage wi = new waifuImage(1, filePath);
-            dbHandler.addImage(wi, wi.get_id());
+            dbHandler.addImage(wi);
 
             //Adding image to media library
             Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             Uri contentUri = Uri.fromFile(file);
             mediaScanIntent.setData(contentUri);
             Main2Activity.this.sendBroadcast(mediaScanIntent);
+
+            //disabling button
+            Toast.makeText(this, "Image has been downloaded", Toast.LENGTH_SHORT).show();
+            v.setClickable(false);
         } else {
             Toast.makeText(this, "Still converting, please wait", Toast.LENGTH_SHORT).show();
         }
@@ -298,7 +227,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
     public class SFTPUtils {
 
-        private String TAG="SFTPUtils";
+        private String TAG = "SFTPUtils";
         private String host;
         private String username;
         private String password;
@@ -306,7 +235,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         private ChannelSftp sftp = null;
         private Session sshSession = null;
 
-        public SFTPUtils (String host, String username, String password) {
+        public SFTPUtils(String host, String username, String password) {
             this.host = host;
             this.username = username;
             this.password = password;
@@ -340,25 +269,26 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
 
         /**
-         * 断开服务器
+         * disconnect
          */
         public void disconnect() {
             if (this.sftp != null) {
                 if (this.sftp.isConnected()) {
                     this.sftp.disconnect();
-                    Log.d(TAG,"sftp is closed already");
+                    Log.d(TAG, "sftp is closed already");
                 }
             }
             if (this.sshSession != null) {
                 if (this.sshSession.isConnected()) {
                     this.sshSession.disconnect();
-                    Log.d(TAG,"sshSession is closed already");
+                    Log.d(TAG, "sshSession is closed already");
                 }
             }
         }
 
         /**
-         * 单个文件下载
+         * download
+         *
          * @param remotePath
          * @param remoteFileName
          * @param localPath
@@ -369,7 +299,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                                     String localPath, String localFileName) {
             try {
                 sftp.cd(remotePath);
-                File file = new File(localPath+localFileName);
+                File file = new File(localPath + localFileName);
 //                mkdirs(localPath + localFileName);
                 sftp.get(remoteFileName, new FileOutputStream(file));
                 return true;
@@ -382,232 +312,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             return false;
         }
 
-        /**
-         * 单个文件上传
-         * @param remotePath
-         * @param remoteFileName
-         * @param localPath
-         * @param localFileName
-         * @return
-         */
-        public boolean uploadFile(String remotePath, String remoteFileName,
-                                  String localPath, String localFileName) {
-            FileInputStream in = null;
-            try {
-//                createDir(remotePath);
-                System.out.println(remotePath);
-                File file = new File(localPath);
-                in = new FileInputStream(file);
-                System.out.println(in);
-                // 自己加的 debug
-                Log.d(TAG,"手机地址" + localPath);
-                Log.d(TAG,"远程地址" + remotePath + remoteFileName);
-                // sftp_put(self, localfile, remotefile):
-                sftp.put(in, remotePath + remoteFileName);
-                System.out.println(sftp);
-                return true;
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (SftpException e) {
-                e.printStackTrace();
-            } finally {
-                if (in != null) {
-                    try {
-                        in.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            return false;
-        }
 
-        /**
-         * 批量上传
-         * @param remotePath
-         * @param localPath
-         * @param del
-         * @return
-         */
-        public boolean bacthUploadFile(String remotePath, String localPath,
-                                       boolean del) {
-            try {
-                File file = new File(localPath);
-                File[] files = file.listFiles();
-                for (int i = 0; i < files.length; i++) {
-                    if (files[i].isFile()
-                            && files[i].getName().indexOf("bak") == -1) {
-                        synchronized(remotePath){
-                            if (this.uploadFile(remotePath, files[i].getName(),
-                                    localPath, files[i].getName())
-                                    && del) {
-                                deleteFile(localPath + files[i].getName());
-                            }
-                        }
-                    }
-                }
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                this.disconnect();
-            }
-            return false;
-
-        }
-
-        /**
-         * 批量下载文件
-         *
-         * @param remotPath
-         *            远程下载目录(以路径符号结束)
-         * @param localPath
-         *            本地保存目录(以路径符号结束)
-         * @param fileFormat
-         *            下载文件格式(以特定字符开头,为空不做检验)
-         * @param del
-         *            下载后是否删除sftp文件
-         * @return
-         */
-        @SuppressWarnings("rawtypes")
-        public boolean batchDownLoadFile(String remotPath, String localPath,
-                                         String fileFormat, boolean del) {
-            try {
-                connect();
-                Vector v = listFiles(remotPath);
-                if (v.size() > 0) {
-
-                    Iterator it = v.iterator();
-                    while (it.hasNext()) {
-                        ChannelSftp.LsEntry entry = (ChannelSftp.LsEntry) it.next();
-                        String filename = entry.getFilename();
-                        SftpATTRS attrs = entry.getAttrs();
-                        if (!attrs.isDir()) {
-                            if (fileFormat != null && !"".equals(fileFormat.trim())) {
-                                if (filename.startsWith(fileFormat)) {
-                                    if (this.downloadFile(remotPath, filename,
-                                            localPath, filename)
-                                            && del) {
-                                        deleteSFTP(remotPath, filename);
-                                    }
-                                }
-                            } else {
-                                if (this.downloadFile(remotPath, filename,
-                                        localPath, filename)
-                                        && del) {
-                                    deleteSFTP(remotPath, filename);
-                                }
-                            }
-                        }
-                    }
-                }
-            } catch (SftpException e) {
-                e.printStackTrace();
-            } finally {
-                this.disconnect();
-            }
-            return false;
-        }
-
-
-        /**
-         * 删除文件
-         * @param filePath
-         * @return
-         */
-        public boolean deleteFile(String filePath) {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                return false;
-            }
-            if (!file.isFile()) {
-                return false;
-            }
-            return file.delete();
-        }
-
-        public boolean createDir(String createpath) {
-            try {
-                if (isDirExist(createpath)) {
-                    this.sftp.cd(createpath);
-                    Log.d(TAG,createpath);
-                    return true;
-                }
-                String pathArry[] = createpath.split("/");
-                StringBuffer filePath = new StringBuffer("/");
-                for (String path : pathArry) {
-                    if (path.equals("")) {
-                        continue;
-                    }
-                    filePath.append(path + "/");
-                    if (isDirExist(createpath)) {
-                        sftp.cd(createpath);
-                    } else {
-                        sftp.mkdir(createpath);
-                        sftp.cd(createpath);
-                    }
-                }
-                this.sftp.cd(createpath);
-                return true;
-            } catch (SftpException e) {
-                e.printStackTrace();
-            }
-            return false;
-        }
-
-        /**
-         * 判断目录是否存在
-         * @param directory
-         * @return
-         */
-        @SuppressLint("DefaultLocale")
-        public boolean isDirExist(String directory) {
-            boolean isDirExistFlag = false;
-            try {
-                SftpATTRS sftpATTRS = sftp.lstat(directory);
-                isDirExistFlag = true;
-                return sftpATTRS.isDir();
-            } catch (Exception e) {
-                if (e.getMessage().toLowerCase().equals("no such file")) {
-                    isDirExistFlag = false;
-                }
-            }
-            return isDirExistFlag;
-        }
-
-        public void deleteSFTP(String directory, String deleteFile) {
-            try {
-                sftp.cd(directory);
-                sftp.rm(deleteFile);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        /**
-         * 创建目录
-         * @param path
-         */
-        public void mkdirs(String path) {
-            File f = new File(path);
-            String fs = f.getParent();
-            f = new File(fs);
-            if (!f.exists()) {
-                f.mkdirs();
-            }
-        }
-
-        /**
-         * 列出目录文件
-         * @param directory
-         * @return
-         * @throws SftpException
-         */
-
-        @SuppressWarnings("rawtypes")
-        public Vector listFiles(String directory) throws SftpException {
-            return sftp.ls(directory);
-        }
 
     }
 }
