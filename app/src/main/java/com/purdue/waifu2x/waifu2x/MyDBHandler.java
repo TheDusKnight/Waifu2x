@@ -35,7 +35,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addImage(waifuImage wi, int id) {
+    public void addImage(waifuImage wi) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, wi.get_id());
         values.put(COLUMN_IMAGEPATHNAME, wi.get_imagePath());
