@@ -138,31 +138,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // 
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
         imageView1=findViewById(R.id.imageView);
-        switch(requestCode) {
-            case 0:
-                if(resultCode == RESULT_OK){
-                    selectedImage = imageReturnedIntent.getData();
-                    imageView1.setImageURI(selectedImage);
-                    String s = getRealPathFromURI(selectedImage);
-                    String s2 = getRealPathFromURI2(selectedImage);
-                    txt2.setText(s2);
-                    txt.setText(s);
-                }
 
-                break;
-            case 1:
                 if(resultCode == RESULT_OK){
                     selectedImage = imageReturnedIntent.getData();
                     imageView1.setImageURI(selectedImage);
                     String s = getRealPathFromURI(selectedImage);
-                    txt.setText(s);
                     String s2 = getRealPathFromURI2(selectedImage);
                     txt2.setText(s2);
+                    txt.setText(s);
                 }
-                break;
-        }
 
     }
 

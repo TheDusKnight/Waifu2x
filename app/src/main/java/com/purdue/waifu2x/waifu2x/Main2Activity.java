@@ -221,7 +221,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, "Image has been downloaded", Toast.LENGTH_SHORT).show();
             v.setClickable(false);
         } else {
-            Toast.makeText(this, "Still converting, please wait", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Image still converting, please wait", Toast.LENGTH_SHORT).show();
         }
     };
 
