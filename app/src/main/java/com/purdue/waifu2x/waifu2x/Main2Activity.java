@@ -1,16 +1,10 @@
 package com.purdue.waifu2x.waifu2x;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.support.v4.content.FileProvider;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,37 +17,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Arrays;
 
-
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
@@ -63,11 +33,7 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Vector;
@@ -182,46 +148,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         startActivity(Intent.createChooser(shareImage, "Share via"));
     }
 
-/*    public void download(View view) {
-
-        //Creating a folder to save images in
-        File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
-                + "/Waifu2x_Images/");
-
-        File file = new File(dir, fileName);
-        filePath = file.getAbsolutePath();
-        try {
-            downloadToFile(cachePath, filePath);
-            Toast.makeText(this,"Image downloaded", Toast.LENGTH_LONG).show();
-            view.setClickable(false);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Image could not be downloaded", Toast.LENGTH_LONG).show();
-        }
-
-    }*/
-
-/*    public void downloadToFile (String source, String destination) throws IOException {
-
-        File sourceFile = new File(source);
-        File destFile = new File(destination);
-        final int chunkSize = 1024;  // We'll read in one kB at a time
-        byte[] imageData = new byte[chunkSize];
-        try {
-            InputStream in = getContentResolver().openInputStream(Uri.fromFile(sourceFile));
-            OutputStream out = new FileOutputStream(destFile);
-            int bytesRead;
-            while ((bytesRead = in.read(imageData)) > 0) {
-                out.write(Arrays.copyOfRange(imageData, 0, Math.max(0, bytesRead)));
-            }
-            in.close();
-            out.flush();
-            out.close();
-        } catch (Exception ex) {
-            ex.getStackTrace(); }
-
-    }*/
-
     public void undo(View view) {
         finish();
     }
@@ -278,17 +204,22 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         File file =  new File(localPath + txt1);
         filePath = file.getAbsolutePath();
         if (file.exists()) {
-            image_new.setImageDrawable(Drawable.createFromPath(filePath));
+            Drawable d = Drawable.createFromPath(filePath);
+            image_new.setImageDrawable(d);
 
             MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
             waifuImage wi = new waifuImage(1, filePath);
-            dbHandler.addImage(wi, wi.get_id());
+            dbHandler.addImage(wi);
 
             //Adding image to media library
             Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             Uri contentUri = Uri.fromFile(file);
             mediaScanIntent.setData(contentUri);
             Main2Activity.this.sendBroadcast(mediaScanIntent);
+
+            //disabling button
+            Toast.makeText(this, "Image has been downloaded", Toast.LENGTH_SHORT).show();
+            v.setClickable(false);
         } else {
             Toast.makeText(this, "Still converting, please wait", Toast.LENGTH_SHORT).show();
         }

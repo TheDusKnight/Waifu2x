@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
-    <cache-path
+    <external-path
         name="images"
-        path="/" />
+        path="/Download/Waifu2x_Images"/>
 </paths>
