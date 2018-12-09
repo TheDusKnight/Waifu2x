@@ -95,10 +95,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String imageName;
     private final  String TAG="MainActivity";
     private Button buttonUpLoad = null;
+    private Button buttonDownLoad = null;
     private SFTPUtils sftp;
     TextView txt;
     TextView txt2;
     RadioGroup noise;
+    RadioButton low;
+    RadioButton Medium;
+    RadioButton High;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +116,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt2=findViewById(R.id.textView6);
         //"noise" is used to get the selected level of noise reduction
         noise = (RadioGroup) findViewById(R.id.noise);
+        low=(RadioButton)findViewById(R.id.checkBox4);
+        Medium=(RadioButton)findViewById(R.id.checkBox5);
+        High=(RadioButton)findViewById(R.id.checkBox6);
         // Request external storage write permission
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -136,22 +143,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    // Display the selected image with image path
+    //
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         imageView1=findViewById(R.id.imageView);
 
-                if(resultCode == RESULT_OK){
-                    selectedImage = imageReturnedIntent.getData();
-                    imageView1.setImageURI(selectedImage);
-                    String s = getRealPathFromURI(selectedImage);
-                    String s2 = getRealPathFromURI2(selectedImage);
-                    txt2.setText(s2);
-                    txt.setText(s);
-                }
+        if(resultCode == RESULT_OK){
+            selectedImage = imageReturnedIntent.getData();
+            imageView1.setImageURI(selectedImage);
+            String s = getRealPathFromURI(selectedImage);
+            String s2 = getRealPathFromURI2(selectedImage);
+            txt2.setText(s2);
+            txt.setText(s);
+        }
 
     }
 
-    // Convert image URL into string
     public String getRealPathFromURI(Uri uri) {
         String[] projection = { MediaStore.MediaColumns.DISPLAY_NAME};
         //image name
@@ -197,7 +203,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public ChannelSftp connect() {
             JSch jsch = new JSch();
             try {
-                // input username, host, port and password into sshSession
                 sshSession = jsch.getSession(username, host, port);
                 sshSession.setPassword(password);
                 Properties sshConfig = new Properties();
@@ -205,10 +210,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sshSession.setConfig(sshConfig);
                 sshSession.connect();
                 Channel channel = sshSession.openChannel("sftp");
-                // Check if channel exists
                 if (channel != null) {
                     channel.connect();
                 } else {
+//                    Toast.makeText(MainActivity.this, "Fail", Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "channel connecting failed.");
                 }
                 sftp = (ChannelSftp) channel;
@@ -255,9 +260,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 File file = new File(localPath);
                 in = new FileInputStream(file);
                 System.out.println(in);
-                // localPath is the path that contains image name
+                // debug
                 Log.d(TAG, "phone path" + localPath);
                 Log.d(TAG, "Remote path" + remotePath + remoteFileName);
+                // sftp_put(self, localfile, remotefile):
                 sftp.put(in, remotePath + remoteFileName);
                 System.out.println(sftp);
                 return true;
@@ -296,6 +302,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(final View v) {
+
         // TODO Auto-generated method stub
         if (selectedImage != null) {
             new Thread() {
@@ -305,28 +312,71 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     switch (v.getId()) {
                         case R.id.button2: {
+                            if(low.isChecked())
+                            {
+                                String txt1 = "Low_"+txt.getText().toString();
+                                String txt = txt2.getText().toString();
 
 
-                            String txt1 = txt.getText().toString();
-                            String txt = txt2.getText().toString();
 
 
-                            //getting level of noise reduction; low is the default value
-                            RadioButton noiseButton = (RadioButton) findViewById(noise.getCheckedRadioButtonId());
-                            //appending the noise reduction to the file name
-                            imageName =  noiseButton.getText().toString() + "_" + txt1;
+                                //upload
+                                Log.d(TAG, "upload");
+//                        String localPath = "sdcard/xml/";
+                                String localPath = "sdcard/Pictures/";
+//                        String remotePath = "test";
+                                String remotePath = "/ftpuser/";
+                                sftp.connect();
+                                Log.d(TAG, "connected");
+//                        sftp.uploadFile(remotePath,"APPInfo.xml", localPath, "APPInfo.xml");
+                                sftp.uploadFile(remotePath, txt1, txt, txt1);
+                                Log.d(TAG, "uploaded");
+                                sftp.disconnect();
+                                Log.d(TAG, "disconnected");
+                            }
 
-                            //upload
-                            Log.d(TAG, "upload");
-//                            String localPath = "sdcard/Pictures/";
-                            String remotePath = "/ftpuser/";
-                            sftp.connect();
-                            Log.d(TAG, "connected");
-                            sftp.uploadFile(remotePath, imageName, txt, imageName);
-                            Log.d(TAG, "uploaded");
-                            sftp.disconnect();
-                            Log.d(TAG, "disconnected");
+                            else if(Medium.isChecked()){
+                                String txt1 = "Medium_"+txt.getText().toString();
+                                String txt = txt2.getText().toString();
 
+
+                                //upload
+                                Log.d(TAG, "upload");
+//                        String localPath = "sdcard/xml/";
+                                String localPath = "sdcard/Pictures/";
+//                        String remotePath = "test";
+                                String remotePath = "/ftpuser/";
+                                sftp.connect();
+                                Log.d(TAG, "connected");
+//                        sftp.uploadFile(remotePath,"APPInfo.xml", localPath, "APPInfo.xml");
+                                sftp.uploadFile(remotePath, txt1, txt, txt1);
+                                Log.d(TAG, "uploaded");
+                                sftp.disconnect();
+                                Log.d(TAG, "disconnected");
+                            }
+
+                            else if(High.isChecked())
+                            {
+                                String txt1 = "High_"+txt.getText().toString();
+                                String txt = txt2.getText().toString();
+
+
+
+
+                                //upload
+                                Log.d(TAG, "upload");
+//                        String localPath = "sdcard/xml/";
+                                String localPath = "sdcard/Pictures/";
+//                        String remotePath = "test";
+                                String remotePath = "/ftpuser/";
+                                sftp.connect();
+                                Log.d(TAG, "connected");
+//                        sftp.uploadFile(remotePath,"APPInfo.xml", localPath, "APPInfo.xml");
+                                sftp.uploadFile(remotePath, txt1, txt, txt1);
+                                Log.d(TAG, "uploaded");
+                                sftp.disconnect();
+                                Log.d(TAG, "disconnected");
+                            }
                         }
                         break;
 
@@ -334,14 +384,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
             }.start();
-            Intent mIntent = new Intent(this, Main2Activity.class);
-            mIntent.putExtra("Image", selectedImage.toString());
-            mIntent.putExtra("Image_name", imageName);
-            startActivity(mIntent);
+            if(low.isChecked()) {
+                Intent mIntent = new Intent(this, Main2Activity.class);
+                mIntent.putExtra("Image", selectedImage.toString());
+                mIntent.putExtra("Image_name", "Low_" + txt.getText().toString());
+                startActivity(mIntent);
+            }
+            else if(Medium.isChecked()) {
+                Intent mIntent = new Intent(this, Main2Activity.class);
+                mIntent.putExtra("Image", selectedImage.toString());
+                mIntent.putExtra("Image_name", "Medium_" + txt.getText().toString());
+                startActivity(mIntent);
+            }
+
+            else if(High.isChecked()) {
+                Intent mIntent = new Intent(this, Main2Activity.class);
+                mIntent.putExtra("Image", selectedImage.toString());
+                mIntent.putExtra("Image_name", "High_" + txt.getText().toString());
+                startActivity(mIntent);
+            }
+
         } else {
             Toast.makeText(this, "Choose an image to convert", Toast.LENGTH_SHORT);
         }
     };
 
-    }
+}
 
