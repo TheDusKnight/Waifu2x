@@ -35,14 +35,14 @@ public class MyDBHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addImage(waifuImage wi, int id) {
+    public void addImage(waifuImage wi) {
         ContentValues values = new ContentValues();
-        values.put(COLUMN_ID, id);
+        values.put(COLUMN_ID, wi.get_id());
         values.put(COLUMN_IMAGEPATHNAME, wi.get_imagePath());
 
         SQLiteDatabase db = this.getWritableDatabase();
         //Making the newest entry the first row
-        if (id == 1) {
+        if (wi.get_id() == 1) {
             //Checking for and deleting the soon-to-be excess row and cache file
             String query2 = "Select * From " + TABLE_waifu + " Where " + COLUMN_ID + " = 16";
             Cursor c2 = db.rawQuery(query2, null);

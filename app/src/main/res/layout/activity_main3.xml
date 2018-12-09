@@ -14,205 +14,234 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:gravity="center_horizontal">
 
         <TableRow
-            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/imageViewA"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod15"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image" />
 
             <ImageView
                 android:id="@+id/imageViewB"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod16"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image" />
 
             <ImageView
                 android:id="@+id/imageViewC"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod17"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image" />
 
             <ImageView
                 android:id="@+id/imageViewD"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod18"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/imageViewE"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod11"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image" />
 
             <ImageView
                 android:id="@+id/imageViewF"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod12"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image" />
 
             <ImageView
                 android:id="@+id/imageViewG"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod13"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image" />
 
             <ImageView
                 android:id="@+id/imageViewH"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod14"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/imageViewI"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod7"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/image" />
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/image"/>
 
             <ImageView
                 android:id="@+id/imageViewJ"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod8"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image" />
 
             <ImageView
                 android:id="@+id/imageViewK"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod9"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image" />
 
             <ImageView
                 android:id="@+id/imageViewL"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod1o"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/imageViewM"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod19"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image" />
 
             <ImageView
                 android:id="@+id/imageViewN"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod2o"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image" />
 
             <ImageView
                 android:id="@+id/imageViewO"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod21"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image" />
 
             <ImageView
                 android:id="@+id/imageViewP"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:adjustViewBounds="false"
+                android:layout_margin="3dp"
                 android:clickable="true"
                 android:contentDescription="@string/tod22"
                 android:focusable="true"
                 android:onClick="toDisplay"
-                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/image" />
         </TableRow>
     </TableLayout>

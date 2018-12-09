@@ -1,15 +1,24 @@
 package com.purdue.waifu2x.waifu2x;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.Toast;
 
 import java.io.File;
+
+import static android.media.ThumbnailUtils.extractThumbnail;
 
 public class Main3Activity extends AppCompatActivity {
 
@@ -35,28 +44,66 @@ public class Main3Activity extends AppCompatActivity {
         final ImageView image15 = findViewById(R.id.imageViewO);
         final ImageView image16 = findViewById(R.id.imageViewP);
 
+        //Making table fixed size
+        Display display = getWindowManager().getDefaultDisplay();
+        Point outSize = new Point();
+        display.getSize(outSize);
+        TableLayout.LayoutParams params = new TableLayout.LayoutParams(outSize.x,outSize.y);
+        TableLayout library = new TableLayout(this);
+      //  library.setLayoutParams(params);
+
+        //getting width of each cell
+        int width = outSize.x/4;
+
+        //getting height of bottom buttons in pixels
+        int dp = 40;
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        float logicalDensity = metrics.density;
+        int px = (int) Math.ceil(dp * logicalDensity);
+        
+        //getting cell height by subtracting buttons from display first
+        int height = (outSize.y - px) / 4;
+
         image1.setImageDrawable(getWaifuImage(1));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
         image2.setImageDrawable(getWaifuImage(2));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
         image3.setImageDrawable(getWaifuImage(3));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
         image4.setImageDrawable(getWaifuImage(4));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
         image5.setImageDrawable(getWaifuImage(5));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
         image6.setImageDrawable(getWaifuImage(6));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
         image7.setImageDrawable(getWaifuImage(7));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
         image8.setImageDrawable(getWaifuImage(8));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
         image9.setImageDrawable(getWaifuImage(9));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
         image10.setImageDrawable(getWaifuImage(10));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
         image11.setImageDrawable(getWaifuImage(11));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
         image12.setImageDrawable(getWaifuImage(12));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
         image13.setImageDrawable(getWaifuImage(13));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
         image14.setImageDrawable(getWaifuImage(14));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
         image15.setImageDrawable(getWaifuImage(15));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
         image16.setImageDrawable(getWaifuImage(16));
+        image1.setLayoutParams(new TableRow.LayoutParams(width, height));
     }
 
     private Drawable getWaifuImage(int i) {
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
         waifuImage wi = dbHandler.findImage(i);
         String imagePath = wi.get_imagePath();
+        //Bitmap result;
         Drawable d;
         if (imagePath != null) {
             //Check if path exists
@@ -76,17 +123,23 @@ public class Main3Activity extends AppCompatActivity {
                         if (file.exists()) {
                             flag = false;
                         } else {
-                            d = ResourcesCompat.getDrawable(getResources(), R.drawable.image, null);
-                            return d;
+//                            result = BitmapFactory.decodeResource(this.getResources(), R.drawable.image, null);
+//                            return result;
+
                         }
                     }
                 } //end while
             }
             //if path does exist
+//            Bitmap b = BitmapFactory.decodeFile(imagePath);
+//            result = extractThumbnail(b, sizeX, sizeY);
             d = Drawable.createFromPath(imagePath);
+
         } else {
+           // result = BitmapFactory.decodeResource(this.getResources(), R.drawable.image, null);
             d = ResourcesCompat.getDrawable(getResources(), R.drawable.image, null);
         }
+        //return result;
         return d;
     }
 
