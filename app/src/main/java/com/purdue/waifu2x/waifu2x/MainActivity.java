@@ -104,10 +104,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         init();
+        // "txt" is used to display image name
         txt=findViewById(R.id.textView4);
+        // "txt2" is used to display image absolute path
         txt2=findViewById(R.id.textView6);
         checkBoxlow=findViewById(R.id.checkBox4);
-        // Request permission
+        // Request external storage write permission
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 4);
@@ -116,11 +118,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     public void init(){
         buttonUpLoad = findViewById(R.id.button2);
-        //buttonDownLoad = (Button) findViewById(R.id.button_download);
         buttonUpLoad.setOnClickListener(this);
+        // Type the SFTP server IP, username and password here
 //        sftp = new SFTPUtils("SFTP server IP", "username","password");
         sftp = new SFTPUtils("35.237.124.24", "ftpuser","uiuc626");
     }
+
+    // Use ACTION_PICK intent to choose image from image library
     public void choose_image(View view) {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -129,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    // 
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
         imageView1=findViewById(R.id.imageView);
