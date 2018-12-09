@@ -115,12 +115,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     public void init(){
-        //获取控件对象
         buttonUpLoad = (Button) findViewById(R.id.button2);
         //buttonDownLoad = (Button) findViewById(R.id.button_download);
-        //设置控件对应相应函数
         buttonUpLoad.setOnClickListener(this);
-//        sftp = new SFTPUtils("SFTP服务器IP", "用户名","密码");
+//        sftp = new SFTPUtils("SFTP server IP", "username","password");
         sftp = new SFTPUtils("35.237.124.24", "ftpuser","uiuc626");
 //        sftp = new SFTPUtils("35.229.127.84", "ftpuser","uiuc626");
     }
@@ -228,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         /**
-         * 断开服务器
+         * disconnect
          */
         public void disconnect() {
             if (this.sftp != null) {
@@ -246,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         /**
-         * 单个文件上传
+         * upload
          *
          * @param remotePath
          * @param remoteFileName
@@ -263,9 +261,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 File file = new File(localPath);
                 in = new FileInputStream(file);
                 System.out.println(in);
-                // 自己加的 debug
-                Log.d(TAG, "手机地址" + localPath);
-                Log.d(TAG, "远程地址" + remotePath + remoteFileName);
+                // debug
+                Log.d(TAG, "phone path" + localPath);
+                Log.d(TAG, "Remote path" + remotePath + remoteFileName);
                 // sftp_put(self, localfile, remotefile):
                 sftp.put(in, remotePath + remoteFileName);
                 System.out.println(sftp);
@@ -310,7 +308,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
 
-                //这里写入子线程需要做的工作
 
                 switch (v.getId()) {
                     case R.id.button2: {
@@ -318,19 +315,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         String txt1 = txt.getText().toString();
                         String txt = txt2.getText().toString();
 
-                        //上传文件
-                        Log.d(TAG,"上传文件");
+                        //upload
+                        Log.d(TAG,"upload");
 //                        String localPath = "sdcard/xml/";
                         String localPath = "sdcard/Pictures/";
 //                        String remotePath = "test";
                         String remotePath = "/ftpuser/";
                         sftp.connect();
-                        Log.d(TAG,"连接成功");
+                        Log.d(TAG,"connected");
 //                        sftp.uploadFile(remotePath,"APPInfo.xml", localPath, "APPInfo.xml");
                         sftp.uploadFile(remotePath,txt1, txt, txt1);
-                        Log.d(TAG,"上传成功");
+                        Log.d(TAG,"uploaded");
                         sftp.disconnect();
-                        Log.d(TAG,"断开连接");
+                        Log.d(TAG,"disconnected");
 
                     }
                     break;
