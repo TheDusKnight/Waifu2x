@@ -32,7 +32,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/username"
-            android:inputType="text" />
+            android:inputType="text"
+            tools:ignore="Autofill" />
 
         <EditText
             android:id="@+id/editText2"
@@ -43,7 +44,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/password"
-            android:inputType="text" />
+            android:inputType="text"
+            tools:ignore="Autofill" />
     </LinearLayout>
 
     <LinearLayout
@@ -116,13 +118,13 @@
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="@string/image_name" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="@string/image_path" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -135,7 +137,8 @@
             android:layout_height="match_parent"
             android:layout_weight="33"
             android:onClick="Start"
-            android:text="@string/start"/>
+            android:text="@string/start"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/button5"
@@ -143,7 +146,8 @@
             android:layout_height="match_parent"
             android:layout_weight="33"
             android:onClick="Library"
-            android:text="@string/library" />
+            android:text="@string/library"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/button6"
@@ -151,7 +155,8 @@
             android:layout_height="match_parent"
             android:layout_weight="33"
             android:onClick="About"
-            android:text="@string/about" />
+            android:text="@string/about"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 
 </LinearLayout>

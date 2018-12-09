@@ -46,4 +46,6 @@
     <string name="username">UserName</string>
     <string name="password">Password</string>
     <string name="download_and_show">Download and Show</string>
+    <string name="image_name">Image Name</string>
+    <string name="image_path">Image Path</string>
 </resources>
