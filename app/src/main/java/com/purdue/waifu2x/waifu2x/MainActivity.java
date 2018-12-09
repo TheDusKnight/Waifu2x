@@ -23,12 +23,13 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.purdue.waifu2x.waifu2x.util.NetWorkUtil;
+//import com.purdue.waifu2x.waifu2x.util.NetWorkUtil;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SFTPUtils sftp;
     TextView txt;
     TextView txt2;
+    CheckBox checkBoxlow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         init();
         txt=(TextView)findViewById(R.id.textView4);
         txt2=(TextView)findViewById(R.id.textView6);
+        checkBoxlow=(CheckBox)findViewById(R.id.checkBox4);
         // Request permission
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -311,6 +314,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 switch (v.getId()) {
                     case R.id.button2: {
+
                         String txt1 = txt.getText().toString();
                         String txt = txt2.getText().toString();
 

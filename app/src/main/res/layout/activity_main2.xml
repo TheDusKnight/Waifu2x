@@ -39,7 +39,7 @@
         android:id="@+id/textView7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="@string/image_name" />
 
     <Button
         android:id="@+id/button3"
@@ -64,7 +64,8 @@
             android:contentDescription="@string/todo"
             android:focusable="true"
             android:onClick="share"
-            app:srcCompat="@drawable/share" />
+            app:srcCompat="@drawable/share"
+            tools:ignore="NestedWeights" />
 
         <FrameLayout
             android:layout_width="wrap_content"
