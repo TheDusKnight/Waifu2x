@@ -26,6 +26,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SFTPUtils sftp;
     TextView txt;
     TextView txt2;
-    CheckBox checkBoxlow;
+    RadioGroup noise;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +110,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt=findViewById(R.id.textView4);
         // "txt2" is used to display image absolute path
         txt2=findViewById(R.id.textView6);
-        checkBoxlow=findViewById(R.id.checkBox4);
+        //"noise" is used to get the selected level of noise reduction
+        noise = (RadioGroup) findViewById(R.id.noise);
         // Request external storage write permission
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -308,43 +311,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(final View v) {
         // TODO Auto-generated method stub
-        new Thread() {
-            @Override
-            public void run() {
+        if (selectedImage != null) {
+            new Thread() {
+                @Override
+                public void run() {
 
 
-                switch (v.getId()) {
-                    case R.id.button2: {
+                    switch (v.getId()) {
+                        case R.id.button2: {
 
-                        String txt1 = txt.getText().toString();
-                        String txt = txt2.getText().toString();
+                            String txt1 = txt.getText().toString();
+                            String txt = txt2.getText().toString();
 
-                        //upload
-                        Log.d(TAG,"upload");
+                            //upload
+                            Log.d(TAG, "upload");
 //                        String localPath = "sdcard/xml/";
-                        String localPath = "sdcard/Pictures/";
+                            String localPath = "sdcard/Pictures/";
 //                        String remotePath = "test";
-                        String remotePath = "/ftpuser/";
-                        sftp.connect();
-                        Log.d(TAG,"connected");
+                            String remotePath = "/ftpuser/";
+                            sftp.connect();
+                            Log.d(TAG, "connected");
 //                        sftp.uploadFile(remotePath,"APPInfo.xml", localPath, "APPInfo.xml");
-                        sftp.uploadFile(remotePath,txt1, txt, txt1);
-                        Log.d(TAG,"uploaded");
-                        sftp.disconnect();
-                        Log.d(TAG,"disconnected");
+                            sftp.uploadFile(remotePath, txt1, txt, txt1);
+                            Log.d(TAG, "uploaded");
+                            sftp.disconnect();
+                            Log.d(TAG, "disconnected");
+
+                        }
+                        break;
+
 
                     }
-                    break;
-
-
                 }
-            }
-        }.start();
-        Intent mIntent=new Intent(this, Main2Activity.class);
-        mIntent.putExtra("Image", selectedImage.toString());
-        mIntent.putExtra("Image_name", txt.getText().toString());
-        startActivity(mIntent);
-    }
+            }.start();
+            //getting level of noise reduction; low is the default value
+            RadioButton noiseButton = (RadioButton) findViewById(noise.getCheckedRadioButtonId());
+            String imageName =  noiseButton.getText().toString() + "_" + txt.getText().toString();
+            Intent mIntent = new Intent(this, Main2Activity.class);
+            mIntent.putExtra("Image", selectedImage.toString());
+            mIntent.putExtra("Image_name", imageName);
+            startActivity(mIntent);
+        } else {
+            Toast.makeText(this, "Choose an image to convert", Toast.LENGTH_SHORT);
+        }
+    };
 
     }
 

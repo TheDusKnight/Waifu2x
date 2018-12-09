@@ -61,26 +61,34 @@
             android:text="@string/noise_reduction"
             android:textColor="@color/colorPrimaryDark" />
 
-        <CheckBox
-            android:id="@+id/checkBox4"
+        <RadioGroup
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="5dp"
-            android:text="@string/low" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/noise">
 
-        <CheckBox
-            android:id="@+id/checkBox5"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="5dp"
-            android:text="@string/medium" />
+            <RadioButton
+                android:id="@+id/checkBox4"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:text="@string/low"
+                android:checked="true"/>
 
-        <CheckBox
-            android:id="@+id/checkBox6"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="5dp"
-            android:text="@string/high"/>
+            <RadioButton
+                android:id="@+id/checkBox5"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:text="@string/medium" />
+
+            <RadioButton
+                android:id="@+id/checkBox6"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:text="@string/high" />
+        </RadioGroup>
     </LinearLayout>
 
 
