@@ -104,9 +104,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         init();
-        txt=(TextView)findViewById(R.id.textView4);
-        txt2=(TextView)findViewById(R.id.textView6);
-        checkBoxlow=(CheckBox)findViewById(R.id.checkBox4);
+        txt=findViewById(R.id.textView4);
+        txt2=findViewById(R.id.textView6);
+        checkBoxlow=findViewById(R.id.checkBox4);
         // Request permission
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -115,12 +115,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     public void init(){
-        buttonUpLoad = (Button) findViewById(R.id.button2);
+        buttonUpLoad = findViewById(R.id.button2);
         //buttonDownLoad = (Button) findViewById(R.id.button_download);
         buttonUpLoad.setOnClickListener(this);
 //        sftp = new SFTPUtils("SFTP server IP", "username","password");
         sftp = new SFTPUtils("35.237.124.24", "ftpuser","uiuc626");
-//        sftp = new SFTPUtils("35.229.127.84", "ftpuser","uiuc626");
     }
     public void choose_image(View view) {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK,
@@ -132,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        imageView1=(ImageView) findViewById(R.id.imageView);
+        imageView1=findViewById(R.id.imageView);
         switch(requestCode) {
             case 0:
                 if(resultCode == RESULT_OK){
@@ -340,7 +339,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mIntent.putExtra("Image", selectedImage.toString());
         mIntent.putExtra("Image_name", txt.getText().toString());
         startActivity(mIntent);
-    };
+    }
 
     }
 
