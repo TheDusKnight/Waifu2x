@@ -257,7 +257,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 if (channel != null) {
                     channel.connect();
                 } else {
-//                    Toast.makeText(MainActivity.this, "Fail", Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "channel connecting failed.");
                 }
                 sftp = (ChannelSftp) channel;

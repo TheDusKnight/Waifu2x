@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String imageName;
     private final  String TAG="MainActivity";
     private Button buttonUpLoad = null;
-    private Button buttonDownLoad = null;
     private SFTPUtils sftp;
     TextView txt;
     TextView txt2;
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    // 
+    // Display the selected image with image path
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         imageView1=findViewById(R.id.imageView);
 
@@ -152,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    // Convert image URL into string
     public String getRealPathFromURI(Uri uri) {
         String[] projection = { MediaStore.MediaColumns.DISPLAY_NAME};
         //image name
@@ -197,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public ChannelSftp connect() {
             JSch jsch = new JSch();
             try {
+                // input username, host, port and password into sshSession
                 sshSession = jsch.getSession(username, host, port);
                 sshSession.setPassword(password);
                 Properties sshConfig = new Properties();
@@ -204,10 +205,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sshSession.setConfig(sshConfig);
                 sshSession.connect();
                 Channel channel = sshSession.openChannel("sftp");
+                // Check if channel exists
                 if (channel != null) {
                     channel.connect();
                 } else {
-//                    Toast.makeText(MainActivity.this, "Fail", Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "channel connecting failed.");
                 }
                 sftp = (ChannelSftp) channel;
@@ -254,10 +255,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 File file = new File(localPath);
                 in = new FileInputStream(file);
                 System.out.println(in);
-                // debug
+                // localPath is the path that contains image name
                 Log.d(TAG, "phone path" + localPath);
                 Log.d(TAG, "Remote path" + remotePath + remoteFileName);
-                // sftp_put(self, localfile, remotefile):
                 sftp.put(in, remotePath + remoteFileName);
                 System.out.println(sftp);
                 return true;
@@ -318,13 +318,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                             //upload
                             Log.d(TAG, "upload");
-//                        String localPath = "sdcard/xml/";
-                            String localPath = "sdcard/Pictures/";
-//                        String remotePath = "test";
+//                            String localPath = "sdcard/Pictures/";
                             String remotePath = "/ftpuser/";
                             sftp.connect();
                             Log.d(TAG, "connected");
-//                        sftp.uploadFile(remotePath,"APPInfo.xml", localPath, "APPInfo.xml");
                             sftp.uploadFile(remotePath, imageName, txt, imageName);
                             Log.d(TAG, "uploaded");
                             sftp.disconnect();
