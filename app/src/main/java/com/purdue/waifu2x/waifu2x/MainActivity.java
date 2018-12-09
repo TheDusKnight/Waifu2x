@@ -28,7 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.purdue.waifu2x.waifu2x.util.NetWorkUtil;
+//import com.purdue.waifu2x.waifu2x.util.NetWorkUtil;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         init();
-        txt=(TextView)findViewById(R.id.textView4);
-        txt2=(TextView)findViewById(R.id.textView6);
+        txt=findViewById(R.id.textView4);
+        txt2=findViewById(R.id.textView6);
         // Request permission
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        imageView1=(ImageView) findViewById(R.id.imageView);
+        imageView1=findViewById(R.id.imageView);
         switch(requestCode) {
             case 0:
                 if(resultCode == RESULT_OK){
