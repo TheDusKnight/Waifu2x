@@ -92,6 +92,7 @@ import java.util.Vector;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     ImageView imageView1;
     Uri selectedImage;
+    String imageName;
     private final  String TAG="MainActivity";
     private Button buttonUpLoad = null;
     private Button buttonDownLoad = null;
@@ -305,8 +306,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     switch (v.getId()) {
                         case R.id.button2: {
 
+
                             String txt1 = txt.getText().toString();
                             String txt = txt2.getText().toString();
+
+
+                            //getting level of noise reduction; low is the default value
+                            RadioButton noiseButton = (RadioButton) findViewById(noise.getCheckedRadioButtonId());
+                            //appending the noise reduction to the file name
+                            imageName =  noiseButton.getText().toString() + "_" + txt1;
 
                             //upload
                             Log.d(TAG, "upload");
@@ -317,7 +325,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             sftp.connect();
                             Log.d(TAG, "connected");
 //                        sftp.uploadFile(remotePath,"APPInfo.xml", localPath, "APPInfo.xml");
-                            sftp.uploadFile(remotePath, txt1, txt, txt1);
+                            sftp.uploadFile(remotePath, imageName, txt, imageName);
                             Log.d(TAG, "uploaded");
                             sftp.disconnect();
                             Log.d(TAG, "disconnected");
@@ -329,9 +337,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
             }.start();
-            //getting level of noise reduction; low is the default value
-            RadioButton noiseButton = (RadioButton) findViewById(noise.getCheckedRadioButtonId());
-            String imageName =  noiseButton.getText().toString() + "_" + txt.getText().toString();
             Intent mIntent = new Intent(this, Main2Activity.class);
             mIntent.putExtra("Image", selectedImage.toString());
             mIntent.putExtra("Image_name", imageName);
