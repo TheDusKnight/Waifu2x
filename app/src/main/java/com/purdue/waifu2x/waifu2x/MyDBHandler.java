@@ -50,6 +50,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 File file = new File(findImage(16).get_imagePath());
                 boolean deleted = file.delete();
                 deleteImage(16);
+
+                c2.close();
             }
             //Updating the ID of the other rows
             for (int i = 15; i > 0; i--) {

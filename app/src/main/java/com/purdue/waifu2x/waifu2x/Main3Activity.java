@@ -120,8 +120,8 @@ public class Main3Activity extends AppCompatActivity {
                     }
                     wi = dbHandler.findImage(i);
                     imagePath = wi.get_imagePath();
-                    file = new File(imagePath);
                     if (imagePath != null) {
+                        file = new File(imagePath);
                         if (file.exists()) {
                             flag = false;
                         } else {
