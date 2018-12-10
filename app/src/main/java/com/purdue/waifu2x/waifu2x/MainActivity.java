@@ -115,10 +115,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // "txt2" is used to display image absolute path
         txt2=findViewById(R.id.textView6);
         //"noise" is used to get the selected level of noise reduction
-        noise = (RadioGroup) findViewById(R.id.noise);
-        low=(RadioButton)findViewById(R.id.checkBox4);
-        Medium=(RadioButton)findViewById(R.id.checkBox5);
-        High=(RadioButton)findViewById(R.id.checkBox6);
+        noise = findViewById(R.id.noise);
+        low = findViewById(R.id.radio1);
+        Medium = findViewById(R.id.radio2);
+        High = findViewById(R.id.radio3);
         // Request external storage write permission
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {

@@ -68,22 +68,22 @@
             android:id="@+id/noise">
 
             <RadioButton
-                android:id="@+id/checkBox4"
+                android:id="@+id/radio1"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="5dp"
-                android:text="@string/low"
-                android:checked="true"/>
+                android:checked="true"
+                android:text="@string/low" />
 
             <RadioButton
-                android:id="@+id/checkBox5"
+                android:id="@+id/radio2"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="5dp"
                 android:text="@string/medium" />
 
             <RadioButton
-                android:id="@+id/checkBox6"
+                android:id="@+id/radio3"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="5dp"
